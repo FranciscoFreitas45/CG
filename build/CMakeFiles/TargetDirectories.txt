@@ -1,0 +1,4 @@
+/Users/mariadias/Desktop/a/CG/build/CMakeFiles/generator.dir
+/Users/mariadias/Desktop/a/CG/build/CMakeFiles/rebuild_cache.dir
+/Users/mariadias/Desktop/a/CG/build/CMakeFiles/edit_cache.dir
+/Users/mariadias/Desktop/a/CG/build/CMakeFiles/engine.dir

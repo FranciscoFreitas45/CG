@@ -1,6 +1,8 @@
-
-
-
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
+#include <GL/glut.h>
+#endif
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -12,8 +14,6 @@
 #include "plane.h"
 #include "sphere.h"
 #include "torus.h"
-#include <bits/stdc++.h>
-#include <GL/glut.h>
 
 
 

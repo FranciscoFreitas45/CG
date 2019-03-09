@@ -9,8 +9,6 @@
 #include "tinyxml2.h"
 #include "../src/Point.h"
 #include "../src/Shape.h"
-#include <bits/stdc++.h>
-#include <GL/glut.h>
 
 
 using namespace tinyxml2;
