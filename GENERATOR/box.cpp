@@ -1,4 +1,5 @@
-
+#define _USE_MATH_DEFINES
+#include <cmath>
 #include <math.h>
 #include <cstdio>
 #include "box.h"

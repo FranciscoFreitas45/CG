@@ -1,5 +1,5 @@
-
-
+#define _USE_MATH_DEFINES
+#include <cmath>
 #include "cone.h"
 #include "../src/Shape.h"
 #include <math.h>

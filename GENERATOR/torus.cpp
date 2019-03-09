@@ -1,5 +1,5 @@
-
-
+#define _USE_MATH_DEFINES
+#include <cmath>
 #include "torus.h"
 #include "../src/Shape.h"
 #include <math.h>

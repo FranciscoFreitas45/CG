@@ -1,4 +1,5 @@
-
+#define _USE_MATH_DEFINES
+#include <cmath>
 #include "sphere.h"
 #include "../src/Shape.h"
 
