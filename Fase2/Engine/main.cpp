@@ -10,51 +10,169 @@
 #include "tinyxml2.h"
 #include "../src/Point.h"
 #include "../src/Shape.h"
+#include "../src/Group.h"
+#include "../src/Action.h"
 
 
 using namespace tinyxml2;
 using namespace std;
 
 
-vector<Point> model;
+Group*scene =new Group();
 int linha = GL_LINE;
 float alpha = 0.61547999;
 float beta = 0.61547999;
 float rad = 10;
+int tam=0;
 
 
-void readFile(char* FILENAME) {
-    vector<string> tokens;
+Shape* readFile(char* FILENAME ) {
+    Shape *s = new Shape();
     ifstream file(FILENAME);
     if (file.is_open()) {
         std::string line;
         while (getline(file, line)) {
-               Point p = Point(line);
-               model.push_back(p);
+            Point *p = new Point(line);
+            s->insertPoint(p);
         }
         file.close();
     }
-   else {
+    else {
         printf("NAO ABRIU O FICHEIRO\n");
+    }
+    return s;
+}
+
+
+Group* child(Group *g){
+    Group *child = new Group(tam++);
+    g->addGroup(child);
+    std::cout << tam << std::endl;
+    return child;
+}
+
+void parserTranslate(XMLElement * current,Group *g) {
+    float y;
+    float x;
+    float z;
+    Action *action= new Action();
+    current->QueryFloatAttribute("X",&x);
+    current->QueryFloatAttribute("Y",&x);
+    current->QueryFloatAttribute("Z",&z);
+    action->setX(x);
+    action->setY(y);
+    action->setZ(z);
+    action->setTag("translate");
+    g->addAction(action);
+}
+void parserRotate(XMLElement * current,Group *g) {
+    float y;
+    float x;
+    float z;
+    float angle;
+    Rotate *action= new Rotate();
+    current->QueryFloatAttribute("X",&x);
+    current->QueryFloatAttribute("Y",&x);
+    current->QueryFloatAttribute("Z",&z);
+    current->QueryFloatAttribute("angle",&angle);
+    action->setX(x);
+    action->setY(y);
+    action->setZ(z);
+    action->setAngle(angle);
+    action->setTag("rotate");
+    g->addAction(action);
+
+}
+
+
+void parserScale(XMLElement * current,Group *g) {
+    float y;
+    float x;
+    float z;
+    Action *action= new Action();
+    current->QueryFloatAttribute("X",&x);
+    current->QueryFloatAttribute("Y",&x);
+    current->QueryFloatAttribute("Z",&z);
+    action->setX(x);
+    action->setY(y);
+    action->setZ(z);
+    action->setTag("scale");
+    g->addAction(action);
+}
+
+void parserColour(XMLElement * current,Group *gr) {
+    float r;
+    float g;
+    float b;
+    Action *action= new Action();
+    current->QueryFloatAttribute("R",&r);
+    current->QueryFloatAttribute("G",&g);
+    current->QueryFloatAttribute("B",&b);
+    action->setX(r);
+    action->setY(g);
+    action->setZ(b);
+    action->setTag("colour");
+    gr->addAction(action);
+}
+
+
+void parserModels(XMLElement * current,Group *g){
+    vector<Shape*>models;
+    XMLElement * element = current->FirstChildElement(); //<model>
+    for (; element; element = element->NextSiblingElement()) { // itera por os model
+        string ficheiro = element->Attribute("file"); // pega no valor do atributo file  em cada  Model
+        char *aux = const_cast<char *>(ficheiro.c_str());
+        Shape* shape =readFile(aux); // Gets model's vertexes
+        models.push_back(shape);
+    }
+    g->addShape(models);
+}
+
+
+void parseGroup(XMLElement * current,Group *g){
+    XMLElement* group = current;
+    if(!(strcmp(current->Name(),"translate"))) {
+        parserTranslate(current,g);
+    }
+    else if(!(strcmp(current->Name(),"rotate"))) {
+        parserRotate(current, g);
+    }
+    else if(!(strcmp(current->Name(),"scale"))) {
+        parserScale(current, g);
+    }
+    else if(!(strcmp(current->Name(),"models"))) {
+        parserModels(current,g);
+    }
+    else if(!(strcmp(current->Name(),"colour"))) {
+        parserColour(current,g);
+    }
+     else if (!(strcmp(current->Name(), "group"))) {
+        Group* c = child(g);
+        current = current->FirstChildElement();
+        if(current)
+            parseGroup(current,c);
+    }
+    group = group->NextSiblingElement();
+    if(group) parseGroup(group,g);
+}
+
+
+
+
+
+
+
+void readXML(char * path) {
+    XMLDocument doc;
+    XMLElement *element;
+    tinyxml2::XMLError eResult = doc.LoadFile(path);
+    if (!eResult) {
+        element = doc.FirstChildElement()->FirstChildElement();//<scene><group>
+        std::cout << element->Name() << " pai" << std::endl;
+        parseGroup(element,scene);
     }
 }
 
-void readXML(char * path){
-    XMLDocument doc;
-    XMLElement *element;
-    tinyxml2::XMLError eResult = doc.LoadFile(path);// path2
-    if(!eResult){
-        element = doc.FirstChildElement()->FirstChildElement(); //<scene><model>
-        for (; element; element = element->NextSiblingElement()) { // itera por os model
-                string ficheiro = element->Attribute("file"); // pega no valor do atributo file  em cada  Model
-                char * aux = const_cast<char *>(ficheiro.c_str());
-                readFile(aux); // Gets model's vertexes
-        }
-    }
-    else {
-        cout << "o ficheiro nao foi carregado" << endl;
-    }
-}
 
 
 
@@ -98,7 +216,7 @@ void renderScene(void) {
 
     glPolygonMode(GL_FRONT,linha);
 
-
+/*
     glColor3f(1,1,1);
     for(int i = 0;i<model.size();i+=3){
         glBegin(GL_TRIANGLES);
@@ -107,6 +225,7 @@ void renderScene(void) {
         glVertex3f(model[i+2].getX(),model[i+2].getY(),model[i+2].getZ());
         glEnd();
     }
+    */
     // End of frame
     glutSwapBuffers();
 }
