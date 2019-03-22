@@ -1,7 +1,3 @@
-//
-// Created by cyborg on 22-03-2019.
-//
-
 #include "Action.h"
 
 Action::Action(){

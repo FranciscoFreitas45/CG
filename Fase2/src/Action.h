@@ -1,7 +1,3 @@
-//
-// Created by cyborg on 22-03-2019.
-//
-
 #ifndef GENERATOR_ACTION_H
 #define GENERATOR_ACTION_H
 

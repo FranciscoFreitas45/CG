@@ -1,6 +1,3 @@
-//
-// Created by cyborg on 21-03-2019.
-//
 #include "Point.h"
 #include "Group.h"
 #include <iostream>
@@ -23,7 +20,7 @@ void Group::addAction(Action *a) {
     this->actions.push_back(a);
 }
 
-void Group::addShape(vector<Shape*>s) {
+void Group::addShape(vector<Shape*>s) { 
     for(int i=0; i<s.size(); i++)
         this->models.push_back(s.at(i));
 }

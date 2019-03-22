@@ -13,19 +13,19 @@
 #include "../src/Group.h"
 #include "../src/Action.h"
 
-
 using namespace tinyxml2;
 using namespace std;
 
 
-Group*scene =new Group();
+Group*scene =new Group(); //Podemos pensar na nossa "scene" como um grupo grande, em que dentro tem mais groups, shapes e ações a acontecer.
 int linha = GL_LINE;
 float alpha = 0.61547999;
 float beta = 0.61547999;
 float rad = 10;
 int tam=0;
 
-
+// Parser que identifica o ficheiro relativo ao modelo que se pretende desenhar, e insere os pontos
+// na estrutura Shape
 Shape* readFile(char* FILENAME ) {
     Shape *s = new Shape();
     ifstream file(FILENAME);
@@ -43,7 +43,7 @@ Shape* readFile(char* FILENAME ) {
     return s;
 }
 
-
+// Função auxiliar para o parseGroup. Sempre que há uma ocorrência de group, cria-se
 Group* child(Group *g){
     Group *child = new Group(tam++);
     g->addGroup(child);
@@ -51,6 +51,9 @@ Group* child(Group *g){
     return child;
 }
 
+// Parser que pega no elemento xml Translate, e guarda as coordenadas que aparecem na lista de actions
+// (uma action, como se pode ver no ficheiro Action.h, pode ser um conjunto de 3 floats (coordenadas), ou
+// então 3 coordenadas e 1 float (ângulo, no caso do rotate).
 void parserTranslate(XMLElement * current,Group *g) {
     float y;
     float x;
@@ -65,6 +68,8 @@ void parserTranslate(XMLElement * current,Group *g) {
     action->setTag("translate");
     g->addAction(action);
 }
+
+// Parser que pega no elemento xml Rotate, e guarda as coordenadas que aparecem na lista de actions
 void parserRotate(XMLElement * current,Group *g) {
     float y;
     float x;
@@ -84,7 +89,7 @@ void parserRotate(XMLElement * current,Group *g) {
 
 }
 
-
+// Parser que pega no elemento xml Scale, e guarda as coordenadas que aparecem na lista de actions
 void parserScale(XMLElement * current,Group *g) {
     float y;
     float x;
@@ -100,6 +105,7 @@ void parserScale(XMLElement * current,Group *g) {
     g->addAction(action);
 }
 
+// Parser que pega no elemento xml Translate, e guarda os números das cores que aparecem na lista de actions
 void parserColour(XMLElement * current,Group *gr) {
     float r;
     float g;
@@ -115,7 +121,8 @@ void parserColour(XMLElement * current,Group *gr) {
     gr->addAction(action);
 }
 
-
+// Parser específico para o elemento Models, percorre todos os "Model" e chama a funçao "readFile" que
+// armazena na estrutura Shape as suas coordenadas, e depois adiciona-a à lista de models do grupo
 void parserModels(XMLElement * current,Group *g){
     vector<Shape*>models;
     XMLElement * element = current->FirstChildElement(); //<model>
@@ -128,7 +135,7 @@ void parserModels(XMLElement * current,Group *g){
     g->addShape(models);
 }
 
-
+// PARSER GERAL. Onde as funções acima são chamadas.
 void parseGroup(XMLElement * current,Group *g){
     XMLElement* group = current;
     if(!(strcmp(current->Name(),"translate"))) {
@@ -146,13 +153,16 @@ void parseGroup(XMLElement * current,Group *g){
     else if(!(strcmp(current->Name(),"colour"))) {
         parserColour(current,g);
     }
-     else if (!(strcmp(current->Name(), "group"))) {
+     else if (!(strcmp(current->Name(), "group"))) { // Caso em que se trata de um group FILHO.
+        // Aqui cria-se um novo objeto Group e adiciona-se a lista de filhos do grupo atual.
+        // A funçao child devolve o novo Filho para se fazer o parse dentro dele atraves da
+         // chamada recursiva de parseGroup
         Group* c = child(g);
         current = current->FirstChildElement();
         if(current)
             parseGroup(current,c);
     }
-    group = group->NextSiblingElement();
+    group = group->NextSiblingElement(); //quando não se entra em mais nenhum caso, passa-se ao elemento irmão
     if(group) parseGroup(group,g);
 }
 
@@ -177,7 +187,6 @@ void readXML(char * path) {
 
 
 void changeSize(int w, int h) {
-
     // Prevent a divide by zero, when window is too short
     // (you cant make a window with zero width).
     if(h == 0)
@@ -338,36 +347,36 @@ int main(int argc, char * argv[]) {
             return 0;
         }
 
-    Shape s= Shape();
+        Shape s= Shape();
 
-            readXML(argv[1]);
-            // put GLUT init here
-            glutInit(&argc,argv);
-            glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
-            glutInitWindowPosition(100,100);
-            glutInitWindowSize(800,800);
-            glutCreateWindow("CG@DI");
-            glClearColor(0,0,0,0) ;
-            glClear(GL_COLOR_BUFFER_BIT);
+        readXML(argv[1]);
+        // put GLUT init here
+        glutInit(&argc,argv);
+        glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
+        glutInitWindowPosition(100,100);
+        glutInitWindowSize(800,800);
+        glutCreateWindow("CG@DI");
+        glClearColor(0,0,0,0) ;
+        glClear(GL_COLOR_BUFFER_BIT);
 
 
 
 // put callback registration here
-            glutDisplayFunc(renderScene);
-            glutReshapeFunc(changeSize);
-            glutIdleFunc(renderScene);
-            glutKeyboardFunc(processKeys);
-            glutSpecialFunc(processSpecialKeys);
+        glutDisplayFunc(renderScene);
+        glutReshapeFunc(changeSize);
+        glutIdleFunc(renderScene);
+        glutKeyboardFunc(processKeys);
+        glutSpecialFunc(processSpecialKeys);
 
 
 
 // OpenGL settings
-            glEnable(GL_DEPTH_TEST);
-            glEnable(GL_CULL_FACE);
-          //  glClearColor(0.0f,0.0f,0.0f,0.0f);
+        glEnable(GL_DEPTH_TEST);
+        glEnable(GL_CULL_FACE);
+      //  glClearColor(0.0f,0.0f,0.0f,0.0f);
 
 // enter GLUT's main loop
-            glutMainLoop();
+        glutMainLoop();
 
 
 
