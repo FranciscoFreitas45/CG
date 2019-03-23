@@ -224,7 +224,7 @@ void renderGroup(Group* g){
     vector<Action*> actions = g->getActions();
 
     for(int i = 0; i < actions.size(); i++){
-        Action* act = actions[i];
+        Action* act = actions.at(i);
         act->apply();
     }
     vector<Shape*> models = g->getModels();
@@ -234,7 +234,7 @@ void renderGroup(Group* g){
 
     //printf("models size: %d\n",(int)models.size()); ta a dar sempre 0, por isso nao entra no ciclo para desenhar
     for(int k = 0; k < models.size(); k++){
-        int points = models[k]->getSize();
+        int points = models.at(k)->getSize();
          /* tava a dar erros ao compilar nas cenas de inicializar o buffer, por isso pus com glVertex so para ver se desenhava e fazias as ações
         glBindBuffer(GL_ARRAY_BUFFER,buffers[i]);
         glVertexPointer(3,GL_FLOAT,0,0);
@@ -244,7 +244,7 @@ void renderGroup(Group* g){
         glBegin(GL_TRIANGLES);
 
         for(int j = 0; j < points; j++){
-            Point* p = models[k]->getPoint(j);
+            Point* p = models.at(k)->getPoint(j);
             float x = p->getX();
             float y = p->getY();
             float z = p->getZ();
@@ -254,13 +254,6 @@ void renderGroup(Group* g){
         }
         glEnd();
     }
-
-    vector<Group*> gps = g->getGroups();
-    for(int l = 0; l < gps.size(); l++){
-        renderGroup(gps[l]);
-    }
-
-
 }
 
 
@@ -279,18 +272,11 @@ void renderScene(void) {
 
     glPolygonMode(GL_FRONT,linha);
 
-/*
-    glColor3f(1,1,1);
-    for(int i = 0;i<model.size();i+=3){
-        glBegin(GL_TRIANGLES);
-        glVertex3f(model[i].getX(),model[i].getY(),model[i].getZ());
-        glVertex3f(model[i+1].getX(),model[i+1].getY(),model[i+1].getZ());
-        glVertex3f(model[i+2].getX(),model[i+2].getY(),model[i+2].getZ());
-        glEnd();
-    }
-    */
 
-    renderGroup(scene);
+    for(int i = 0; i < scene.size(); i++){
+        renderGroup(scene.at(i));
+    }
+
     // End of frame
     glutSwapBuffers();
 }
@@ -407,11 +393,12 @@ int main(int argc, char * argv[]) {
 
         readXML(argv[1]);
         for(int j=0; j<scene.size();j++)
-            for(int i=0; i<scene.at(j)->getActions().size(); i++){
-                std::cout << "TAG: " << scene.at(j)->getActions().at(i)->getTag() << "; X:" 
-                << scene.at(j)->getActions().at(i)->getX() << "; Y:"<< scene.at(j)->getActions().at(i)->getY()
-                << "; Z:"<< scene.at(j)->getActions().at(i)->getZ() << std::endl;
-            }
+            for (int i = 0; i < scene.at(j)->getActions().size(); i++) {
+                std::cout << "TAG: " << scene.at(j)->getActions().at(i)->getTag() << "; X:"
+                          << scene.at(j)->getActions().at(i)->getX() << "; Y:"
+                          << scene.at(j)->getActions().at(i)->getY()
+                          << "; Z:" << scene.at(j)->getActions().at(i)->getZ() << std::endl;
+        }
         // put GLUT init here
         glutInit(&argc,argv);
         glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);

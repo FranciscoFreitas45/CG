@@ -20,11 +20,9 @@ public:
     Group(Group * g);
     void addAction(Action* a);
     void addShape(vector<Shape *>s);
-    vector<Action*> getActions();
-    vector<Shape*> getModels();
     Group* clone();
     void setModels(const vector<Shape*> &models);
-    void setActions(const vector<Shape*> &actions);
+    void setActions(const vector<Action*> &actions);
     const vector<Shape*> &getModels() const;
     const vector<Action*> &getActions() const;
 };

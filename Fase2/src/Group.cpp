@@ -35,7 +35,7 @@ const vector<Shape *> &Group::getModels() const {
     return models;
 }
 
-void Group::setActions(const vector<Shape*> &setActions) {
+void Group::setActions(const vector<Action*> &actions) {
     Group::actions = actions;
 }
 
