@@ -15,7 +15,7 @@ private:
     int id;
     vector <Group*> groups; //Lista de elementos group
     vector <Shape*> models; //Lista de formas
-    vector<Action*> actions; //Lista de ações
+    vector <Action*> actions; //Lista de ações
 
 public:
     Group();
@@ -24,6 +24,9 @@ public:
     void addShape(vector<Shape *>s);
     void addGroup(Group* g);
     int size();
+    vector<Action*> getActions();
+    vector<Shape*> getModels();
+    vector<Group*> getGroups();
 };
 
 

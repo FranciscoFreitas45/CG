@@ -2,6 +2,7 @@
 #ifdef __APPLE__
 #include <GLUT/glut.h>
 #else
+#include <GL/glew.h>
 #include <GL/glut.h>
 #endif
 #include <iostream>
@@ -26,7 +27,7 @@ int tam=0;
 
 // Parser que identifica o ficheiro relativo ao modelo que se pretende desenhar, e insere os pontos
 // na estrutura Shape
-Shape* readFile(char* FILENAME ) {
+Shape* readFile(char* FILENAME) {
     Shape *s = new Shape();
     ifstream file(FILENAME);
     if (file.is_open()) {
@@ -129,7 +130,7 @@ void parserModels(XMLElement * current,Group *g){
     for (; element; element = element->NextSiblingElement()) { // itera por os model
         string ficheiro = element->Attribute("file"); // pega no valor do atributo file  em cada  Model
         char *aux = const_cast<char *>(ficheiro.c_str());
-        Shape* shape =readFile(aux); // Gets model's vertexes
+        Shape* shape = readFile(aux); // Gets model's vertexes
         models.push_back(shape);
     }
     g->addShape(models);
@@ -211,6 +212,52 @@ void changeSize(int w, int h) {
 }
 
 
+void renderGroup(Group* g){
+
+    vector<Action*> actions = g->getActions();
+
+    for(int i = 0; i < actions.size(); i++){
+        Action* act = actions[i];
+        act->apply();
+    }
+    vector<Shape*> models = g->getModels();
+
+    //GLuint buffers[10];
+    //glGenBuffers(1, buffers);
+
+    //printf("models size: %d\n",(int)models.size()); ta a dar sempre 0, por isso nao entra no ciclo para desenhar
+    for(int k = 0; k < models.size(); k++){
+        int points = models[k]->getSize();
+         /* tava a dar erros ao compilar nas cenas de inicializar o buffer, por isso pus com glVertex so para ver se desenhava e fazias as ações
+        glBindBuffer(GL_ARRAY_BUFFER,buffers[i]);
+        glVertexPointer(3,GL_FLOAT,0,0);
+        glBufferData(GL_ARRAY_BUFFER,points*sizeof(float),models[i], GL_STATIC_DRAW);
+        glDrawArrays(GL_TRIANGLES, 0, points/3); */
+
+        glBegin(GL_TRIANGLES);
+
+        for(int j = 0; j < points; j++){
+            Point* p = models[k]->getPoint(j);
+            float x = p->getX();
+            float y = p->getY();
+            float z = p->getZ();
+
+            glVertex3f(x,y,z);
+            //printf("x:%f, y:%f, z:%f",x,y,z);
+        }
+        glEnd();
+    }
+
+    vector<Group*> gps = g->getGroups();
+    for(int l = 0; l < gps.size(); l++){
+        renderGroup(gps[l]);
+    }
+
+
+}
+
+
+
 
 void renderScene(void) {
 
@@ -235,6 +282,8 @@ void renderScene(void) {
         glEnd();
     }
     */
+
+    renderGroup(scene);
     // End of frame
     glutSwapBuffers();
 }
@@ -347,7 +396,7 @@ int main(int argc, char * argv[]) {
             return 0;
         }
 
-        Shape s= Shape();
+       // Shape s= Shape();
 
         readXML(argv[1]);
         // put GLUT init here
@@ -356,6 +405,7 @@ int main(int argc, char * argv[]) {
         glutInitWindowPosition(100,100);
         glutInitWindowSize(800,800);
         glutCreateWindow("CG@DI");
+        glEnableClientState(GL_VERTEX_ARRAY);
         glClearColor(0,0,0,0) ;
         glClear(GL_COLOR_BUFFER_BIT);
 
@@ -367,8 +417,6 @@ int main(int argc, char * argv[]) {
         glutIdleFunc(renderScene);
         glutKeyboardFunc(processKeys);
         glutSpecialFunc(processSpecialKeys);
-
-
 
 // OpenGL settings
         glEnable(GL_DEPTH_TEST);
@@ -383,5 +431,5 @@ int main(int argc, char * argv[]) {
 
 
 
-        }
+}
 

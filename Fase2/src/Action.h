@@ -14,7 +14,7 @@ protected:
 
 public:
     Action();
-    void aplly();
+    void apply();
 
     float getX() const;
 
@@ -43,6 +43,8 @@ public:
     float getAngle() const;
 
     void setAngle(float angle);
+
+    void apply();
 
 };
 

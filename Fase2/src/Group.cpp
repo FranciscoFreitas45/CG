@@ -22,7 +22,8 @@ void Group::addAction(Action *a) {
 
 void Group::addShape(vector<Shape*>s) { 
     for(int i=0; i<s.size(); i++)
-        this->models.push_back(s.at(i));
+       this->models.push_back(s.at(i));
+    //this->models=s;
 }
 
 void Group::addGroup(Group* g){
@@ -31,6 +32,18 @@ void Group::addGroup(Group* g){
 
 int Group::size(){
     return this->groups.size();
+}
+
+vector<Action*> Group::getActions() {
+    return actions;
+}
+
+vector<Shape*> Group::getModels() {
+    return models;
+}
+
+vector<Shape*> Group::getGroups() {
+    return groups;
 }
 
 
