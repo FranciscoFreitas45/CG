@@ -12,21 +12,21 @@ using namespace std;
 class Group {
 
 private:
-    int id;
-    vector <Group*> groups; //Lista de elementos group
     vector <Shape*> models; //Lista de formas
     vector <Action*> actions; //Lista de ações
 
 public:
     Group();
-    Group(int id);
+    Group(Group * g);
     void addAction(Action* a);
     void addShape(vector<Shape *>s);
-    void addGroup(Group* g);
-    int size();
     vector<Action*> getActions();
     vector<Shape*> getModels();
-    vector<Group*> getGroups();
+    Group* clone();
+    void setModels(const vector<Shape*> &models);
+    void setActions(const vector<Shape*> &actions);
+    const vector<Shape*> &getModels() const;
+    const vector<Action*> &getActions() const;
 };
 
 

@@ -18,7 +18,7 @@ using namespace tinyxml2;
 using namespace std;
 
 
-Group*scene =new Group(); //Podemos pensar na nossa "scene" como um grupo grande, em que dentro tem mais groups, shapes e ações a acontecer.
+vector<Group*> scene; // Conjunto de Groups presentes no ficheiro
 int linha = GL_LINE;
 float alpha = 0.61547999;
 float beta = 0.61547999;
@@ -46,9 +46,7 @@ Shape* readFile(char* FILENAME) {
 
 // Função auxiliar para o parseGroup. Sempre que há uma ocorrência de group, cria-se
 Group* child(Group *g){
-    Group *child = new Group(tam++);
-    g->addGroup(child);
-    std::cout << tam << std::endl;
+    Group *child = g->clone();
     return child;
 }
 
@@ -56,12 +54,12 @@ Group* child(Group *g){
 // (uma action, como se pode ver no ficheiro Action.h, pode ser um conjunto de 3 floats (coordenadas), ou
 // então 3 coordenadas e 1 float (ângulo, no caso do rotate).
 void parserTranslate(XMLElement * current,Group *g) {
-    float y;
-    float x;
-    float z;
+    float y = 0;
+    float x = 0;
+    float z = 0;
     Action *action= new Action();
     current->QueryFloatAttribute("X",&x);
-    current->QueryFloatAttribute("Y",&x);
+    current->QueryFloatAttribute("Y",&y);
     current->QueryFloatAttribute("Z",&z);
     action->setX(x);
     action->setY(y);
@@ -72,13 +70,13 @@ void parserTranslate(XMLElement * current,Group *g) {
 
 // Parser que pega no elemento xml Rotate, e guarda as coordenadas que aparecem na lista de actions
 void parserRotate(XMLElement * current,Group *g) {
-    float y;
-    float x;
-    float z;
-    float angle;
+    float y = 0;
+    float x = 0;
+    float z = 0;
+    float angle = 0;
     Rotate *action= new Rotate();
     current->QueryFloatAttribute("X",&x);
-    current->QueryFloatAttribute("Y",&x);
+    current->QueryFloatAttribute("Y",&y);
     current->QueryFloatAttribute("Z",&z);
     current->QueryFloatAttribute("angle",&angle);
     action->setX(x);
@@ -92,12 +90,12 @@ void parserRotate(XMLElement * current,Group *g) {
 
 // Parser que pega no elemento xml Scale, e guarda as coordenadas que aparecem na lista de actions
 void parserScale(XMLElement * current,Group *g) {
-    float y;
-    float x;
-    float z;
+    float y = 0;
+    float x = 0;
+    float z = 0;
     Action *action= new Action();
     current->QueryFloatAttribute("X",&x);
-    current->QueryFloatAttribute("Y",&x);
+    current->QueryFloatAttribute("Y",&y);
     current->QueryFloatAttribute("Z",&z);
     action->setX(x);
     action->setY(y);
@@ -108,9 +106,9 @@ void parserScale(XMLElement * current,Group *g) {
 
 // Parser que pega no elemento xml Translate, e guarda os números das cores que aparecem na lista de actions
 void parserColour(XMLElement * current,Group *gr) {
-    float r;
-    float g;
-    float b;
+    float r = 0;
+    float g = 0;
+    float b = 0;
     Action *action= new Action();
     current->QueryFloatAttribute("R",&r);
     current->QueryFloatAttribute("G",&g);
@@ -134,37 +132,45 @@ void parserModels(XMLElement * current,Group *g){
         models.push_back(shape);
     }
     g->addShape(models);
+    Group* newGroup = g->clone();
+    scene.push_back(newGroup);
 }
 
 // PARSER GERAL. Onde as funções acima são chamadas.
-void parseGroup(XMLElement * current,Group *g){
-    XMLElement* group = current;
-    if(!(strcmp(current->Name(),"translate"))) {
-        parserTranslate(current,g);
+void parseGroup(XMLElement * current2,Group *g, int level){
+    XMLElement* group = current2; //group
+    XMLElement* current = current2->FirstChildElement(); //<group></>
+    for(; current; current = current->NextSiblingElement()){
+        string a = current->Name();
+        if(a.compare("translate")==0) {
+            parserTranslate(current,g);
+        }
+        else if(a.compare("rotate")==0) {
+            parserRotate(current, g);
+        }
+        else if(a.compare("scale")==0) {
+            parserScale(current, g);
+        }
+        else if(a.compare("models")==0) {
+            parserModels(current,g);
+        }
+        else if(a.compare("colour")==0) {
+            parserColour(current,g);
+        }
+        else if (a.compare("group")==0) { // Caso em que se trata de um group FILHO.
+            // Aqui cria-se um novo objeto Group e adiciona-se a lista de filhos do grupo atual.
+            // A funçao child devolve o novo Filho para se fazer o parse dentro dele atraves da
+            // chamada recursiva de parseGroup
+            Group* c = child(g);
+            parseGroup(current,c,++level);
+        }
     }
-    else if(!(strcmp(current->Name(),"rotate"))) {
-        parserRotate(current, g);
+
+    current = current->NextSiblingElement(); //quando não se entra em mais nenhum caso, passa-se ao elemento irmão
+    for(; current2 && level==1; current2 = current2->NextSiblingElement()){
+        Group* newGroup = new Group();
+        parseGroup(current2,newGroup,level++);
     }
-    else if(!(strcmp(current->Name(),"scale"))) {
-        parserScale(current, g);
-    }
-    else if(!(strcmp(current->Name(),"models"))) {
-        parserModels(current,g);
-    }
-    else if(!(strcmp(current->Name(),"colour"))) {
-        parserColour(current,g);
-    }
-     else if (!(strcmp(current->Name(), "group"))) { // Caso em que se trata de um group FILHO.
-        // Aqui cria-se um novo objeto Group e adiciona-se a lista de filhos do grupo atual.
-        // A funçao child devolve o novo Filho para se fazer o parse dentro dele atraves da
-         // chamada recursiva de parseGroup
-        Group* c = child(g);
-        current = current->FirstChildElement();
-        if(current)
-            parseGroup(current,c);
-    }
-    group = group->NextSiblingElement(); //quando não se entra em mais nenhum caso, passa-se ao elemento irmão
-    if(group) parseGroup(group,g);
 }
 
 
@@ -176,11 +182,12 @@ void parseGroup(XMLElement * current,Group *g){
 void readXML(char * path) {
     XMLDocument doc;
     XMLElement *element;
+    Group* scene = new Group();
     tinyxml2::XMLError eResult = doc.LoadFile(path);
     if (!eResult) {
         element = doc.FirstChildElement()->FirstChildElement();//<scene><group>
         std::cout << element->Name() << " pai" << std::endl;
-        parseGroup(element,scene);
+        parseGroup(element,scene,1);
     }
 }
 
@@ -396,9 +403,15 @@ int main(int argc, char * argv[]) {
             return 0;
         }
 
-       // Shape s= Shape();
+       Shape s = Shape();
 
         readXML(argv[1]);
+        for(int j=0; j<scene.size();j++)
+            for(int i=0; i<scene.at(j)->getActions().size(); i++){
+                std::cout << "TAG: " << scene.at(j)->getActions().at(i)->getTag() << "; X:" 
+                << scene.at(j)->getActions().at(i)->getX() << "; Y:"<< scene.at(j)->getActions().at(i)->getY()
+                << "; Z:"<< scene.at(j)->getActions().at(i)->getZ() << std::endl;
+            }
         // put GLUT init here
         glutInit(&argc,argv);
         glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
@@ -425,11 +438,6 @@ int main(int argc, char * argv[]) {
 
 // enter GLUT's main loop
         glutMainLoop();
-
-
-
-
-
 
 }
 

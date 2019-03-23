@@ -12,8 +12,9 @@ using namespace std;
 Group::Group(){
 }
 
-Group::Group(int id){
-    this->id = id;
+Group::Group(Group* c){
+    this->actions = c->getActions();
+    this->models = c->getModels();
 }
 
 void Group::addAction(Action *a) {
@@ -23,28 +24,29 @@ void Group::addAction(Action *a) {
 void Group::addShape(vector<Shape*>s) { 
     for(int i=0; i<s.size(); i++)
        this->models.push_back(s.at(i));
-    //this->models=s;
 }
 
-void Group::addGroup(Group* g){
-    this->groups.push_back(g);
-}
 
-int Group::size(){
-    return this->groups.size();
-}
-
-vector<Action*> Group::getActions() {
+const vector<Action *> &Group::getActions() const {
     return actions;
 }
 
-vector<Shape*> Group::getModels() {
+const vector<Shape *> &Group::getModels() const {
     return models;
 }
 
-vector<Shape*> Group::getGroups() {
-    return groups;
+void Group::setActions(const vector<Shape*> &setActions) {
+    Group::actions = actions;
 }
+
+void Group::setModels(const vector<Shape*> &models) {
+    Group::models = models;
+}
+
+Group* Group::clone(){
+    return new Group(this);
+}
+
 
 
 
