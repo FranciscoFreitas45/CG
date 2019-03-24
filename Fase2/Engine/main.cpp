@@ -162,14 +162,15 @@ void parseGroup(XMLElement * current2,Group *g, int level){
             // A funçao child devolve o novo Filho para se fazer o parse dentro dele atraves da
             // chamada recursiva de parseGroup
             Group* c = child(g);
-            parseGroup(current,c,++level);
+            parseGroup(current,c,2);
         }
     }
 
     current2 = current2->NextSiblingElement(); //quando não se entra em mais nenhum caso, passa-se ao elemento irmão
     for(; current2 && level==1; current2 = current2->NextSiblingElement()){
+        std::cout << current2->Name() << std::endl;
         Group* newGroup = new Group();
-        parseGroup(current2,newGroup,level++);
+        parseGroup(current2,newGroup,2);
     }
 }
 

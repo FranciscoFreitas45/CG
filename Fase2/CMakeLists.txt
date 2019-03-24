@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 
 project(engine)
-add_executable(${PROJECT_NAME} ./Engine/main.cpp ./Engine/tinyxml2.cpp ./src/Point.cpp ./src/Shape.cpp ./src/Group.cpp ./src/Group.h ./src/Action.cpp ./src/Action.h)
+add_executable(${PROJECT_NAME} ./Engine/main.cpp ./Engine/tinyxml2.cpp ./src/Point.cpp ./src/Point.h ./src/Shape.cpp ./src/Shape.h ./src/Group.cpp ./src/Group.h ./src/Action.cpp ./src/Action.h)
 project(generator)
 add_executable(${PROJECT_NAME} ./GENERATOR/main.cpp ./GENERATOR/box.cpp ./src/Point.cpp ./src/Shape.cpp GENERATOR/cone.cpp GENERATOR/cone.h GENERATOR/cylinder.cpp GENERATOR/cylinder.h GENERATOR/plane.cpp GENERATOR/plane.h GENERATOR/sphere.cpp GENERATOR/sphere.h GENERATOR/torus.cpp GENERATOR/torus.h src/Group.cpp src/Group.h src/Action.cpp src/Action.h)
 
