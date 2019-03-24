@@ -2,9 +2,8 @@
     <group>
         <translate Y='1' />
         <group>
-            <translate Y='1' />
+            <translate Y='10' />
             <models>
-                <model file="../files3d/sphere.3d" />
                 <model file="../files3d/torus.3d" />
             </models>
         </group>

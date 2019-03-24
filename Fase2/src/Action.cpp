@@ -56,8 +56,8 @@ const string &Action::getTag() const {
 void Action::setTag(const string &tag) {
     Action::tag = tag;
 }
-/*
-void Action::apply(){
+
+/*void Action::apply(){
     char* string = &tag;
     switch(tag){
 		case (!strcmp(tag,"translate")):
@@ -72,8 +72,8 @@ void Action::apply(){
 			float bz = z/255;
 			glColor3f(rx,gy,bz);
     }
-}*/
-
+}
+*/
 
 void Action::apply(){
 

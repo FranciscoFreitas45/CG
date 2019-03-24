@@ -166,7 +166,7 @@ void parseGroup(XMLElement * current2,Group *g, int level){
         }
     }
 
-    current = current->NextSiblingElement(); //quando não se entra em mais nenhum caso, passa-se ao elemento irmão
+    current2 = current2->NextSiblingElement(); //quando não se entra em mais nenhum caso, passa-se ao elemento irmão
     for(; current2 && level==1; current2 = current2->NextSiblingElement()){
         Group* newGroup = new Group();
         parseGroup(current2,newGroup,level++);
@@ -182,12 +182,12 @@ void parseGroup(XMLElement * current2,Group *g, int level){
 void readXML(char * path) {
     XMLDocument doc;
     XMLElement *element;
-    Group* scene = new Group();
+    Group* p = new Group();
     tinyxml2::XMLError eResult = doc.LoadFile(path);
     if (!eResult) {
         element = doc.FirstChildElement()->FirstChildElement();//<scene><group>
         std::cout << element->Name() << " pai" << std::endl;
-        parseGroup(element,scene,1);
+        parseGroup(element,p,1);
     }
 }
 
@@ -220,6 +220,7 @@ void changeSize(int w, int h) {
 
 
 void renderGroup(Group* g){
+    glPushMatrix();
 
     vector<Action*> actions = g->getActions();
 
@@ -254,6 +255,7 @@ void renderGroup(Group* g){
         }
         glEnd();
     }
+    glPopMatrix();
 }
 
 
@@ -394,7 +396,7 @@ int main(int argc, char * argv[]) {
         readXML(argv[1]);
         for(int j=0; j<scene.size();j++)
             for (int i = 0; i < scene.at(j)->getActions().size(); i++) {
-                std::cout << "TAG: " << scene.at(j)->getActions().at(i)->getTag() << "; X:"
+                std::cout << "Model: " << j << " TAG: " << scene.at(j)->getActions().at(i)->getTag() << "; X:"
                           << scene.at(j)->getActions().at(i)->getX() << "; Y:"
                           << scene.at(j)->getActions().at(i)->getY()
                           << "; Z:" << scene.at(j)->getActions().at(i)->getZ() << std::endl;
