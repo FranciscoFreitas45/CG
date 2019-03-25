@@ -1,4 +1,9 @@
-#include <GL/gl.h>
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
+#include <GL/glew.h>
+#include <GL/glut.h>
+#endif
 #include <cstring>
 #include "Action.h"
 

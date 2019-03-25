@@ -14,7 +14,7 @@ protected:
 
 public:
     Action();
-    void apply();
+    virtual void apply();
 
     float getX() const;
 
