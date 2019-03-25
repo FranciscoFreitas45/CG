@@ -22,7 +22,7 @@ vector<Group*> scene;
 int linha = GL_LINE;
 float alpha = 0.61547999;
 float beta = 0.61547999;
-float rad = 10;
+float rad = 70;
 int tam=0;
 
 
