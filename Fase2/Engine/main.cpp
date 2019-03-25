@@ -50,6 +50,19 @@ Group* child(Group *g){
     return child;
 }
 
+
+void parseType(XMLElement *current,Group *g ){
+    Type *t = new Type();
+    const char* tipo=(char*)malloc(sizeof(char)*10);
+    current->QueryStringAttribute("type",&tipo);
+    string str(tipo);
+    printf(tipo);
+    t->setType(tipo);
+    g->addAction(t);
+
+}
+
+
 // Parser que pega no elemento xml Translate, e guarda as coordenadas que aparecem na lista de actions
 // (uma action, como se pode ver no ficheiro Action.h, pode ser um conjunto de 3 floats (coordenadas), ou
 // então 3 coordenadas e 1 float (ângulo, no caso do rotate).
@@ -157,6 +170,9 @@ void parseGroup(XMLElement * current2,Group *g, int level){
         else if(a.compare("colour")==0) {
             parserColour(current,g);
         }
+        else if(a.compare("tag")==0){
+            parseType(current,g);
+        }
         else if (a.compare("group")==0) { // Caso em que se trata de um group FILHO.
             // Aqui cria-se um novo objeto Group e adiciona-se a lista de filhos do grupo atual.
             // A funçao child devolve o novo Filho para se fazer o parse dentro dele atraves da
@@ -222,12 +238,19 @@ void changeSize(int w, int h) {
 
 void renderGroup(Group* g){
     glPushMatrix();
-
     vector<Action*> actions = g->getActions();
 
     for(int i = 0; i < actions.size(); i++){
         Action* act = actions.at(i);
-        act->apply();
+        if (Type* t = dynamic_cast<Type*>(act)){
+            t->apply(&linha);
+            glPolygonMode(GL_FRONT,linha);
+        }
+       else {
+            act->apply();
+
+        }
+
     }
     vector<Shape*> models = g->getModels();
 
@@ -256,9 +279,20 @@ void renderGroup(Group* g){
         }
         glEnd();
     }
+
     glPopMatrix();
 }
 
+
+
+
+void moviment_mouse (int button, int state, int x, int y){
+        switch(button)
+            case GLUT_LEFT_BUTTON:
+    alpha -= M_PI / 16;
+    glutPostRedisplay();
+
+}
 
 
 
@@ -420,6 +454,7 @@ int main(int argc, char * argv[]) {
         glutIdleFunc(renderScene);
         glutKeyboardFunc(processKeys);
         glutSpecialFunc(processSpecialKeys);
+    glutMouseFunc(moviment_mouse);
 
 // OpenGL settings
         glEnable(GL_DEPTH_TEST);

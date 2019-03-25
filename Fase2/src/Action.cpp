@@ -94,9 +94,35 @@ void Action::apply(){
        float bz = z/255;
        glColor3f(rx,gy,bz);
    }
+
+
 }
 
-void Rotate::apply() {
+void  Rotate::apply() {
     glRotatef(angle,x,y,z);
 }
 
+
+Type::Type() {
+    this->type="";
+
+}
+
+void Type::setType(const string &type) {
+    Type::type=type;
+}
+
+void Type::apply(int *linha) {
+    if(type == "P"){
+    *linha=GL_POINT;
+
+    }
+    else if(type == "L"){
+        *linha=GL_LINE;
+    }
+
+    else if(type == "F"){
+        *linha=GL_FILL;
+    }
+
+}

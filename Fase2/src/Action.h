@@ -48,6 +48,15 @@ public:
 
 };
 
+class Type : public Action{
+private :
+    string type;
+public:
+    Type();
+    void apply(int *linha);
+     void setType(const string &tag);
+};
+
 
 
 #endif //GENERATOR_ACTION_H

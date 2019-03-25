@@ -5,7 +5,7 @@
             <translate Y='10' />
             <rotate angle='45' X='1' Y='0' Z='0' />
             <models>
-                <model file="../files3d/torus.3d" />
+                <model file="../files3d/cintura.3d" />
             </models>
         </group>
    </group>
