@@ -25,10 +25,7 @@ Point::Point(string line){
     this->x=atof(tokens[0].c_str());
     this->y=atof(tokens[1].c_str());
     this->z=atof(tokens[2].c_str());
-
 }
-
-
 
 
 float Point::getX() {

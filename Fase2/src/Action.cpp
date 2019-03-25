@@ -61,27 +61,9 @@ const string &Action::getTag() const {
 void Action::setTag(const string &tag) {
     Action::tag = tag;
 }
-/*z
-void Action::apply(){
-    char* string = &tag;
-    switch(tag){
-		case (!strcmp(tag,"translate")):
-			glTranslatef(x,y,z);
-			break;
-		case "scale":
-			glScalef(x,y,z);
-			break;
-		case "colour":
-			float rx = x/255;
-			float gy = y/255;
-			float bz = z/255;
-			glColor3f(rx,gy,bz);
-    }
-}*/
 
 
 void Action::apply(){
-
    if(tag == "translate"){
        glTranslatef(x,y,z);
    }
@@ -94,9 +76,8 @@ void Action::apply(){
        float bz = z/255;
        glColor3f(rx,gy,bz);
    }
-
-
 }
+
 
 void  Rotate::apply() {
     glRotatef(angle,x,y,z);
@@ -105,7 +86,6 @@ void  Rotate::apply() {
 
 Type::Type() {
     this->type="";
-
 }
 
 void Type::setType(const string &type) {
@@ -124,5 +104,4 @@ void Type::apply(int *linha) {
     else if(type == "F"){
         *linha=GL_FILL;
     }
-
 }

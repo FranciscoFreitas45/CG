@@ -18,15 +18,14 @@ using namespace tinyxml2;
 using namespace std;
 
 
-vector<Group*> scene; // Conjunto de Groups presentes no ficheiro
+vector<Group*> scene; 
 int linha = GL_LINE;
 float alpha = 0.61547999;
 float beta = 0.61547999;
 float rad = 10;
 int tam=0;
 
-// Parser que identifica o ficheiro relativo ao modelo que se pretende desenhar, e insere os pontos
-// na estrutura Shape
+
 Shape* readFile(char* FILENAME) {
     Shape *s = new Shape();
     ifstream file(FILENAME);
@@ -44,7 +43,7 @@ Shape* readFile(char* FILENAME) {
     return s;
 }
 
-// Função auxiliar para o parseGroup. Sempre que há uma ocorrência de group, cria-se
+
 Group* child(Group *g){
     Group *child = g->clone();
     return child;
@@ -59,13 +58,9 @@ void parseType(XMLElement *current,Group *g ){
     printf(tipo);
     t->setType(tipo);
     g->addAction(t);
-
 }
 
 
-// Parser que pega no elemento xml Translate, e guarda as coordenadas que aparecem na lista de actions
-// (uma action, como se pode ver no ficheiro Action.h, pode ser um conjunto de 3 floats (coordenadas), ou
-// então 3 coordenadas e 1 float (ângulo, no caso do rotate).
 void parserTranslate(XMLElement * current,Group *g) {
     float y = 0;
     float x = 0;
@@ -81,7 +76,7 @@ void parserTranslate(XMLElement * current,Group *g) {
     g->addAction(action);
 }
 
-// Parser que pega no elemento xml Rotate, e guarda as coordenadas que aparecem na lista de actions
+
 void parserRotate(XMLElement * current,Group *g) {
     float y = 0;
     float x = 0;
@@ -98,10 +93,9 @@ void parserRotate(XMLElement * current,Group *g) {
     action->setAngle(angle);
     action->setTag("rotate");
     g->addAction(action);
-
 }
 
-// Parser que pega no elemento xml Scale, e guarda as coordenadas que aparecem na lista de actions
+
 void parserScale(XMLElement * current,Group *g) {
     float y = 0;
     float x = 0;
@@ -117,7 +111,7 @@ void parserScale(XMLElement * current,Group *g) {
     g->addAction(action);
 }
 
-// Parser que pega no elemento xml Translate, e guarda os números das cores que aparecem na lista de actions
+
 void parserColour(XMLElement * current,Group *gr) {
     float r = 0;
     float g = 0;
@@ -133,15 +127,14 @@ void parserColour(XMLElement * current,Group *gr) {
     gr->addAction(action);
 }
 
-// Parser específico para o elemento Models, percorre todos os "Model" e chama a funçao "readFile" que
-// armazena na estrutura Shape as suas coordenadas, e depois adiciona-a à lista de models do grupo
+
 void parserModels(XMLElement * current,Group *g){
     vector<Shape*>models;
-    XMLElement * element = current->FirstChildElement(); //<model>
-    for (; element; element = element->NextSiblingElement()) { // itera por os model
-        string ficheiro = element->Attribute("file"); // pega no valor do atributo file  em cada  Model
+    XMLElement * element = current->FirstChildElement(); 
+    for (; element; element = element->NextSiblingElement()) { 
+        string ficheiro = element->Attribute("file"); 
         char *aux = const_cast<char *>(ficheiro.c_str());
-        Shape* shape = readFile(aux); // Gets model's vertexes
+        Shape* shape = readFile(aux); 
         models.push_back(shape);
     }
     g->addShape(models);
@@ -149,7 +142,7 @@ void parserModels(XMLElement * current,Group *g){
     scene.push_back(newGroup);
 }
 
-// PARSER GERAL. Onde as funções acima são chamadas.
+
 void parseGroup(XMLElement * current2,Group *g, int level){
     XMLElement* group = current2; //group
     XMLElement* current = current2->FirstChildElement(); //<group></>
@@ -173,16 +166,13 @@ void parseGroup(XMLElement * current2,Group *g, int level){
         else if(a.compare("tag")==0){
             parseType(current,g);
         }
-        else if (a.compare("group")==0) { // Caso em que se trata de um group FILHO.
-            // Aqui cria-se um novo objeto Group e adiciona-se a lista de filhos do grupo atual.
-            // A funçao child devolve o novo Filho para se fazer o parse dentro dele atraves da
-            // chamada recursiva de parseGroup
+        else if (a.compare("group")==0) { 
             Group* c = child(g);
             parseGroup(current,c,2);
         }
     }
 
-    current2 = current2->NextSiblingElement(); //quando não se entra em mais nenhum caso, passa-se ao elemento irmão
+    current2 = current2->NextSiblingElement(); 
     for(; current2 && level==1; current2 = current2->NextSiblingElement()){
         std::cout << current2->Name() << std::endl;
         Group* newGroup = new Group();
@@ -239,7 +229,6 @@ void changeSize(int w, int h) {
 void renderGroup(Group* g){
     glPushMatrix();
     vector<Action*> actions = g->getActions();
-
     for(int i = 0; i < actions.size(); i++){
         Action* act = actions.at(i);
         if (Type* t = dynamic_cast<Type*>(act)){
@@ -248,38 +237,21 @@ void renderGroup(Group* g){
         }
        else {
             act->apply();
-
         }
-
     }
     vector<Shape*> models = g->getModels();
-
-    //GLuint buffers[10];
-    //glGenBuffers(1, buffers);
-
-    //printf("models size: %d\n",(int)models.size()); ta a dar sempre 0, por isso nao entra no ciclo para desenhar
     for(int k = 0; k < models.size(); k++){
         int points = models.at(k)->getSize();
-         /* tava a dar erros ao compilar nas cenas de inicializar o buffer, por isso pus com glVertex so para ver se desenhava e fazias as ações
-        glBindBuffer(GL_ARRAY_BUFFER,buffers[i]);
-        glVertexPointer(3,GL_FLOAT,0,0);
-        glBufferData(GL_ARRAY_BUFFER,points*sizeof(float),models[i], GL_STATIC_DRAW);
-        glDrawArrays(GL_TRIANGLES, 0, points/3); */
-
         glBegin(GL_TRIANGLES);
-
         for(int j = 0; j < points; j++){
             Point* p = models.at(k)->getPoint(j);
             float x = p->getX();
             float y = p->getY();
             float z = p->getZ();
-
             glVertex3f(x,y,z);
-            //printf("x:%f, y:%f, z:%f",x,y,z);
         }
         glEnd();
     }
-
     glPopMatrix();
 }
 
@@ -287,11 +259,10 @@ void renderGroup(Group* g){
 
 
 void moviment_mouse (int button, int state, int x, int y){
-        switch(button)
-            case GLUT_LEFT_BUTTON:
-    alpha -= M_PI / 16;
+    switch(button)
+        case GLUT_LEFT_BUTTON:
+            alpha -= M_PI / 16;
     glutPostRedisplay();
-
 }
 
 
@@ -417,52 +388,42 @@ void printHelp(){
 
 
 int main(int argc, char * argv[]) {
-        if(argc<2){
-            return 0;
-        }
+    if(argc<2){
+        return 0;
+    }
 
-        if(!strcmp(argv[1],"-h")){
-            printHelp();
-            return 0;
-        }
+    if(!strcmp(argv[1],"-h")){
+        printHelp();
+        return 0;
+    }
 
-       Shape s = Shape();
+    Shape s = Shape();
 
-        readXML(argv[1]);
-        for(int j=0; j<scene.size();j++)
-            for (int i = 0; i < scene.at(j)->getActions().size(); i++) {
-                std::cout << "Model: " << j << " TAG: " << scene.at(j)->getActions().at(i)->getTag() << "; X:"
-                          << scene.at(j)->getActions().at(i)->getX() << "; Y:"
-                          << scene.at(j)->getActions().at(i)->getY()
-                          << "; Z:" << scene.at(j)->getActions().at(i)->getZ() << std::endl;
-        }
-        // put GLUT init here
-        glutInit(&argc,argv);
-        glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
-        glutInitWindowPosition(100,100);
-        glutInitWindowSize(800,800);
-        glutCreateWindow("CG@DI");
-        glEnableClientState(GL_VERTEX_ARRAY);
-        glClearColor(0,0,0,0) ;
-        glClear(GL_COLOR_BUFFER_BIT);
+    readXML(argv[1]);
 
+    // put GLUT init here
+    glutInit(&argc,argv);
+    glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
+    glutInitWindowPosition(100,100);
+    glutInitWindowSize(800,800);
+    glutCreateWindow("CG@DI");
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glClearColor(0,0,0,0) ;
+    glClear(GL_COLOR_BUFFER_BIT);
 
-
-// put callback registration here
-        glutDisplayFunc(renderScene);
-        glutReshapeFunc(changeSize);
-        glutIdleFunc(renderScene);
-        glutKeyboardFunc(processKeys);
-        glutSpecialFunc(processSpecialKeys);
+    // put callback registration here
+    glutDisplayFunc(renderScene);
+    glutReshapeFunc(changeSize);
+    glutIdleFunc(renderScene);
+    glutKeyboardFunc(processKeys);
+    glutSpecialFunc(processSpecialKeys);
     glutMouseFunc(moviment_mouse);
 
-// OpenGL settings
-        glEnable(GL_DEPTH_TEST);
-        glEnable(GL_CULL_FACE);
-      //  glClearColor(0.0f,0.0f,0.0f,0.0f);
+    // OpenGL settings
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
 
-// enter GLUT's main loop
-        glutMainLoop();
-
+    // enter GLUT's main loop
+    glutMainLoop();
 }
 

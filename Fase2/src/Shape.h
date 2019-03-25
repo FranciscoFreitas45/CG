@@ -17,16 +17,10 @@ private:
     GLuint buffer;
 
 public:
-    void insertPoint(Point *p);
-    Point* getPoint(int i);
+    void insertPoint(Point*);
+    Point* getPoint(int);
     int getSize();
-    void vectorToArray();
-
-
-
-
 
 };
-
 
 #endif //ENGINE_SHAPE_H
