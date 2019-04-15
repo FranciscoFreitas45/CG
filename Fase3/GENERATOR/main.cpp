@@ -144,7 +144,10 @@ void printHelp(){
     std::cout << "                                                                      " <<std::endl;
     std::cout << "- torus <RADIUS> <RADIUS> <SLICE> <STACK>                             " <<std::endl;
     std::cout << "  Creates a torus with this minor radius,this major radius,this       " <<std::endl;
-    std::cout << "   number of slices and this number of stacks                         " <<std::endl;
+    std::cout << "   number of slices and this number of stacks.                        " <<std::endl;
+    std::cout << "                                                                      " <<std::endl;
+    std::cout << "- patch <TESSELATION> <INPUT_FILE>                                    " <<std::endl;
+    std::cout << "  Creates a teapot with this tesselation, based on this INPUT_FILE.   " <<std::endl;
     std::cout << "                                                                      " <<std::endl;
     std::cout << "----------------------------------END---------------------------------" <<std::endl;
 }
