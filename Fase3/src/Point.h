@@ -22,5 +22,4 @@ public:
     float getZ();
 };
 
-
 #endif //ENGINE_POINT_H

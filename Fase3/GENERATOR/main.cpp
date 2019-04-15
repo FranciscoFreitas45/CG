@@ -10,6 +10,7 @@
 #include <string.h>
 #include "../src/Point.h"
 #include "../src/Shape.h"
+#include "bezier.h"
 #include "box.h"
 #include "cone.h"
 #include "cylinder.h"
@@ -109,7 +110,9 @@ void generate_torus(char* r,char* R,char* slices,char * stacks,char * file_path)
 void generate_patch(char* t, char * file_orig, char * file_dest){
     float m;
     m=atof(t);
-    Shape * shape=bezierPatch(m, file_orig);
+    cout << "cenas\n";
+    Shape *shape = parseBezierPatch(m, file_orig);
+    cout << "cenas\n";
     write_shape(shape,file_dest);
 }
 
