@@ -3,6 +3,8 @@
 
 #include <cmath>
 #include <string>
+#include <vector>
+#include "Point.h"
 using namespace std;
 
 class Action {
@@ -26,9 +28,22 @@ public:
 
 };
 
+class Translate : public Action{
+private:
+    float time;
+    vector<Point*> points;
+public:
+    Translate();
+    void apply();
+    void addPoint(Point*);
+
+};
+
+
 class Rotate : public Action{
 private:
     float angle;
+    float time;
 public:
     Rotate();
     float getAngle() const;
