@@ -36,6 +36,7 @@ public:
     Translate();
     void apply();
     void addPoint(Point*);
+    void setTime(float time);
 
 };
 
@@ -48,6 +49,7 @@ public:
     Rotate();
     float getAngle() const;
     void setAngle(float angle);
+    void setTime(float time);
     void apply();
 
 };
@@ -58,7 +60,7 @@ private :
 public:
     Type();
     void apply(int *linha);
-     void setType(const string &tag);
+    void setType(const string &tag);
 };
 
 

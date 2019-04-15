@@ -71,6 +71,14 @@ void Action::setTag(const string &tag) {
     Action::tag = tag;
 }
 
+void Rotate::setTime(float time) {
+    Rotate::time = time;
+}
+
+void Translate::setTime(float time) {
+    Translate::time = time;
+}
+
 
 void Action::apply(){
    if(tag == "scale") {

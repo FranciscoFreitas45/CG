@@ -65,7 +65,9 @@ void parserTranslate(XMLElement * current,Group *g) {
     float y = 0;
     float x = 0;
     float z = 0;
-    Action *action= new Action();
+    float time = 0;
+    Translate *action= new Translate();
+    current->QueryFloatAttribute("time",&time);
     current->QueryFloatAttribute("X",&x);
     current->QueryFloatAttribute("Y",&y);
     current->QueryFloatAttribute("Z",&z);
@@ -73,6 +75,18 @@ void parserTranslate(XMLElement * current,Group *g) {
     action->setY(y);
     action->setZ(z);
     action->setTag("translate");
+    action->setTime(time);
+
+    XMLElement* current2 = current->FirstChildElement();
+
+    for (; current2; current2 = current2->NextSiblingElement()){
+        float x1 = 0,y1 = 0,z1 = 0;
+        current2->QueryFloatAttribute("X",&x1);
+        current2->QueryFloatAttribute("Y",&y1);
+        current2->QueryFloatAttribute("Z",&z1);
+        Point *p = new Point(x1,y1,z1);
+        action->addPoint(p);
+    }
     g->addAction(action);
 }
 
@@ -82,7 +96,9 @@ void parserRotate(XMLElement * current,Group *g) {
     float x = 0;
     float z = 0;
     float angle = 0;
+    float time = 0;
     Rotate *action= new Rotate();
+    current->QueryFloatAttribute("time",&time);
     current->QueryFloatAttribute("X",&x);
     current->QueryFloatAttribute("Y",&y);
     current->QueryFloatAttribute("Z",&z);
@@ -92,6 +108,7 @@ void parserRotate(XMLElement * current,Group *g) {
     action->setZ(z);
     action->setAngle(angle);
     action->setTag("rotate");
+    action->setTime(time);
     g->addAction(action);
 }
 
@@ -258,7 +275,7 @@ void renderGroup(Group* g){
 
 
 
-void moviment_mouse (int button, int state, int x, int y){
+void movement_mouse (int button, int state, int x, int y){
     switch(button)
         case GLUT_LEFT_BUTTON:
             alpha -= M_PI / 16;
@@ -417,7 +434,7 @@ int main(int argc, char * argv[]) {
     glutIdleFunc(renderScene);
     glutKeyboardFunc(processKeys);
     glutSpecialFunc(processSpecialKeys);
-    glutMouseFunc(moviment_mouse);
+    glutMouseFunc(movement_mouse);
 
     // OpenGL settings
     glEnable(GL_DEPTH_TEST);
