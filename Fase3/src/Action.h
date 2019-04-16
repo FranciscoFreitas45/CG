@@ -31,13 +31,16 @@ public:
 class Translate : public Action{
 private:
     float time;
-    vector<Point*> points;
+    float yzero[3];
+    vector <Point*> points; // pontos lidos
+    vector <Point*> curvePts; // pontos da curva
 public:
     Translate();
     void apply();
     void addPoint(Point*);
     void setTime(float time);
-
+    void getGlobalCatmullRomPoint(float gt, float *pos, float *deriv, vector<Point*> pts);
+    vector <Point*> createCurvePoints();
 };
 
 
