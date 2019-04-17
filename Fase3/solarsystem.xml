@@ -1,0 +1,253 @@
+<scene>
+    <group>
+            <group>
+                <tag type='L' />
+                <rotate time='20' X='0' Y='1' Z='0' />
+				<colour R='255' G='197' B='0' />
+                <scale X='4' Y='4' Z='4' />
+                <models>
+                    <model file='../files3d/sun.3d' /> '<!--'#SOL '-->'
+                </models>
+			</group>
+			<group>
+					<rotate time='15' X='0' Y='1' Z='0' />
+					<colour R='230' G='212' B='168' />
+                    <scale X='1.2' Y='1.2' Z='1.2' />
+                    <tag type='P' />
+                    <models>
+                        <model file='../files3d/cintura.3d' /> '<!--' #CINTURA DE ASTEROIDES '-->'
+                    </models>
+            </group>
+            <group>
+                <tag type='L' />
+				<rotate time='10' X='0' Y='1' Z='0' />
+				<translate X='10' Y='0' Z='0' />
+                <colour R='170' G='164' B='163' />
+                <scale X='0.05' Y='0.05' Z='0.05' />
+                <models>
+                    <model file='../files3d/sphere.3d' /> '<!--' #MERCURIO '-->'
+                </models>
+            </group>
+            <group>
+            	<tag type='P' />
+				<colour R='40' G='40' B='40' />
+                <scale X='5' Y='0' Z='5' />
+                <models>
+                    <model file='../files3d/torus.3d' /> '<!--' #MERCURIO ORBITA '-->'
+                </models>
+            </group>
+            <group>
+                <tag type='L' />
+				<rotate time='15' X='0' Y='1' Z='0' />
+				<translate X='11' Y='0' Z='0' />
+                <colour R='235' G='231' B='211' />
+                <scale X='0.072' Y='0.072' Z='0.072' />
+                <models>
+                    <model file='../files3d/sphere.3d' /> '<!--' #VENUS '-->'
+                </models>
+            </group>
+            <group>
+            	<tag type='P' />
+				<colour R='40' G='40' B='40' />
+                <scale X='5.5' Y='0' Z='5.5' />
+                <models>
+                    <model file='../files3d/torus.3d' /> '<!--' #VENUS ORBITA '-->'
+                </models>
+            </group>
+            <group>
+                <tag type='L' />
+				<rotate time='20' X='0' Y='1' Z='0' />
+				<translate X='12' Y='0' Z='0' />
+                <colour R='0' G='150' B='255' />
+                <scale X='0.2' Y='0.2' Z='0.2' />
+                <models>
+                    <model file='../files3d/sphere.3d' /> '<!--' #TERRA '-->'
+                </models>
+                <group>
+                    <translate X='0.3' Y='0' Z='2.5' />
+					<colour R='255' G='255' B='255' />
+                    <scale X='0.2' Y='0.2' Z='0.2' />
+                    <models>
+                        <model file='../files3d/sphere.3d' /> '<!--' #TERRA LUA'-->'
+                    </models>
+                </group>
+            </group>
+            <group>
+            	<tag type='P' />
+				<colour R='40' G='40' B='40' />
+                <scale X='6' Y='0' Z='6' />
+                <models>
+                    <model file='../files3d/torus.3d' /> '<!--' #TERRA ORBITA '-->'
+                </models>
+            </group>
+            <group>
+                <tag type='L' />
+				<rotate time='25' X='0' Y='1' Z='0' />
+                <translate X='13' Y='0' Z='0' />
+                <scale X='0.062' Y='0.062' Z='0.062' />
+                <colour R='255' G='102' B='25' />
+                <models>
+                    <model file='../files3d/sphere.3d' /> '<!--' #MARTE '-->'
+                </models>
+            </group>
+            <group>
+            	<tag type='P' />
+                <colour R='40' G='40' B='40' />
+                <scale X='6.5' Y='0' Z='6.5' />
+                <models>
+                    <model file='../files3d/torus.3d' /> '<!--' #MARTE ORBITA '-->'
+                </models>
+            </group>
+            <group>
+                <tag type='L' />
+				<rotate time='30' X='0' Y='1' Z='0' />
+                <translate X='20' Y='0' Z='0' />
+                <colour R='229' G='172' B='86' />
+                <scale X='0.804' Y='0.804' Z='0.804' />
+                <models>
+                    <model file='../files3d/sphere.3d' /> '<!--' #JUPITER '-->'
+                </models>
+            </group>
+            <group>
+            	<tag type='P' />
+                <colour R='40' G='40' B='40' />
+                <scale X='10' Y='0' Z='10' />
+                <models>
+                    <model file='../files3d/torus.3d' /> '<!--' #JUPITER ORBITA '-->'
+                </models>
+            </group>
+            <group>
+                <tag type='L' />
+				<rotate time='35' X='0' Y='1' Z='0' />
+				<rotate time='35' X='1' Y='0' Z='0' />
+                <translate X='23' Y='0' Z='0' />
+                <colour R='230' G='212' B='168' />
+                <scale X='0.670' Y='0.670' Z='0.670' />
+                <models>
+                    <model file='../files3d/sphere.3d' /> '<!--' #SATURNO '-->'
+				</models>
+				<group>
+					<translate X='0.4' Y='0.7' Z='2.5' />
+					<colour R='255' G='255' B='255' />
+					<scale X='0.15' Y='0.15' Z='0.15' />
+					<models>
+						<model file='../files3d/sphere.3d' /> '<!--' #Saturno LUA Titan'-->'
+					</models>
+				</group>
+                <group>
+                    <colour R='230' G='212' B='168' />
+                    <scale X='0.6' Y='0.6' Z='0.6' />
+                    <models>
+                        <model file='../files3d/ring.3d' /> '<!--' #SATURNO ANEL '-->'
+                    </models>
+                </group>
+            </group>
+            <group>
+            	<tag type='P' />
+                <colour R='40' G='40' B='40' />
+				<scale X='11.5' Y='0' Z='11.5' />
+                <models>
+                    <model file='../files3d/torus.3d' /> '<!--' #SATURNO ORBITA '-->'
+                </models>
+            </group>
+            <group>
+                <tag type='L' />
+				<rotate time='40' X='0' Y='1' Z='0' />
+                <translate X='25.5' Y='0.15' Z='-0.1' />
+                <colour R='141' G='207' B='243' />
+                <scale X='0.295' Y='0.295' Z='0.295' />
+                <models>
+                    <model file='../files3d/sphere.3d' /> '<!--' #URANO '-->'
+				</models>
+				<group>
+					<translate X='0' Y='0.3' Z='2.5' />
+					<colour R='255' G='255' B='255' />
+					<scale X='0.2' Y='0.2' Z='0.2' />
+					<models>
+						<model file='../files3d/sphere.3d' /> '<!--' #Urano LUA 1 '-->'
+					</models>
+				</group>
+				<group>
+					<rotate angle='90' X='0' Y='1' Z='0' />
+					<translate X='0' Y='0.2' Z='2.3' />
+					<colour R='255' G='255' B='255' />
+					<scale X='0.15' Y='0.15' Z='0.15' />
+					<models>
+						<model file='../files3d/sphere.3d' /> '<!--' #Urano LUA 2 '-->'
+					</models>
+				</group>
+				<group>
+					<rotate angle='200' X='0' Y='1' Z='0' />
+					<translate X='0' Y='0' Z='2.4' />
+					<colour R='255' G='255' B='255' />
+					<scale X='0.1' Y='0.1' Z='0.1' />
+					<models>
+						<model file='../files3d/sphere.3d' /> '<!--' #Urano LUA 3 '-->'
+					</models>
+				</group>
+				<group>
+					<rotate angle='150' X='0' Y='1' Z='0' />
+					<translate X='0' Y='-0.1' Z='2.5' />
+					<colour R='255' G='255' B='255' />
+					<scale X='0.3' Y='0.3' Z='0.3' />
+					<models>
+						<model file='../files3d/sphere.3d' /> '<!--' #Urano LUA 4 '-->'
+					</models>
+				</group>
+            </group>
+            <group>
+            	<tag type='P' />
+                <colour R='40' G='40' B='40' />
+                <scale X='12.8' Y='0' Z='12.8' />
+                <models>
+                    <model file='../files3d/torus.3d' /> '<!--' #URANO ORBITA '-->'
+                </models>
+            </group>
+            <group>
+                <tag type='L' />
+				<rotate time='45' X='0' Y='1' Z='0' />
+                <translate X='27' Y='0' Z='0' />
+                <colour R='0' G='71' B='255' />
+                <scale X='0.284' Y='0.284' Z='0.284' />
+                <models>
+                    <model file='../files3d/sphere.3d' /> '<!--' #NEPTUNO '-->'
+                </models>
+            </group>
+            <group>
+            	<tag type='P' />
+                <colour R='40' G='40' B='40' />
+                <scale X='13.5' Y='0' Z='13.5' />
+                <models>
+                    <model file='../files3d/torus.3d' /> '<!--' #NEPTUNO ORBITA '-->'
+                </models>
+            </group>
+            <!--COMETA -->
+			<group>
+				<tag type='L' />
+				<rotate angle='225' X='0' Y='1' Z='0'/>
+				<translate time="45">
+					<point X='40' Y='0' Z='-42' />
+					<point X='32' Y='0' Z='-38' />
+					<point X='24' Y='0' Z='-27' />
+					<point X='16' Y='0' Z='32' />
+					<point X='8' Y='0' Z='24' />
+					<point X='0.5' Y='0' Z='17' />
+					<point X='-8' Y='0' Z='-9' />
+					<point X='-16' Y='0' Z='-41' />
+					<point X='-24' Y='0' Z='-42' />
+					<point X='-32' Y='0' Z='-34' />
+					<point X='-40' Y='0' Z='-32' />
+					<point X='-20' Y='0' Z='-34' />
+					<point X='-14' Y='0' Z='-23' />
+					<point X='13' Y='0' Z='-32' />
+					<point X='9' Y='0' Z='-34' />
+					<point X='35' Y='0' Z='-32' />
+				</translate>
+				<scale X='0.5' Y='0.5' Z='0.5' />
+				<colour R='45' G='90' B='143'/>
+				<models>
+					<model file='../files3d/teapot.3d' />
+				</models>
+			</group>
+    </group>
+</scene>

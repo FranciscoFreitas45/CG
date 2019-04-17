@@ -2,6 +2,7 @@
 #ifdef __APPLE__
 #include <GLUT/glut.h>
 #else
+#include <GL/glew.h>
 #include <GL/glut.h>
 #endif
 #include <iostream>
@@ -61,7 +62,7 @@ Point* calcBezierPatch(float **controlpoints, int npatch, float u, float v){
         temp[j][0] = controlpoints[indexes[npatch][i]][0];
         temp[j][1] = controlpoints[indexes[npatch][i]][1];
         temp[j][2] = controlpoints[indexes[npatch][i]][2];
-        
+
         j++;
         //Quando tivermos 4 pontos, podemos fazer o calculo de Bezier
         if( j % 4 == 0 ){
@@ -69,9 +70,9 @@ Point* calcBezierPatch(float **controlpoints, int npatch, float u, float v){
             res[w][0] = p->getX();
             res[w][1] = p->getY();
             res[w][2] = p->getZ();
-            
+
             w++;
-            
+
             j = 0;
         }
     }
@@ -84,12 +85,12 @@ Shape* parseBezierPatch(float tess, char* file_orig){
     ifstream in;
     in.open(file_orig);
     int c=0, ncontrolpoints=0;
-    
+
     if(!in){
         cout << "Couldn't open file!\n" ;
         exit(1);
     }
-    
+
     Shape* s = new Shape();
     char str[1024*1024];
     in.getline(str,1024*1024);
@@ -117,11 +118,11 @@ Shape* parseBezierPatch(float tess, char* file_orig){
         }
     }
     in.close();
-    
+
 
     float u1, v1, u2, v2, inc = 1.0/tess;
     Point* res[npatches][4];
-    
+
     for(int i=0; i<npatches; i++){
         for(int j=0; j<tess; j++){
             for(int w=0; w<tess; w++){
@@ -129,12 +130,12 @@ Shape* parseBezierPatch(float tess, char* file_orig){
                 v1 = w*inc;
                 u2 = (j+1)*inc;
                 v2 = (w+1)*inc;
-                
+
                 res[i][0] = calcBezierPatch(controlpoints, i, u1, v1);
                 res[i][1] = calcBezierPatch(controlpoints, i, u2, v1);
                 res[i][2] = calcBezierPatch(controlpoints, i, u1, v2);
                 res[i][3] = calcBezierPatch(controlpoints, i, u2,v2);
-                
+
                 //0,1,3
                 s->insertPoint(new Point(res[i][0]->getX(),res[i][0]->getY(),res[i][0]->getZ()));
                 s->insertPoint(new Point(res[i][1]->getX(),res[i][1]->getY(),res[i][1]->getZ()));
@@ -148,5 +149,3 @@ Shape* parseBezierPatch(float tess, char* file_orig){
     }
     return s;
 }
-
-

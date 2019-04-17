@@ -18,7 +18,7 @@ using namespace tinyxml2;
 using namespace std;
 
 
-vector<Group*> scene; 
+vector<Group*> scene;
 int linha = GL_LINE;
 float alpha = 0.61547999;
 float beta = 0.61547999;
@@ -55,7 +55,7 @@ void parseType(XMLElement *current,Group *g ){
     const char* tipo=(char*)malloc(sizeof(char)*10);
     current->QueryStringAttribute("type",&tipo);
     string str(tipo);
-    printf(tipo);
+    //printf(tipo);
     t->setType(tipo);
     g->addAction(t);
 }
@@ -147,11 +147,11 @@ void parserColour(XMLElement * current,Group *gr) {
 
 void parserModels(XMLElement * current,Group *g){
     vector<Shape*>models;
-    XMLElement * element = current->FirstChildElement(); 
-    for (; element; element = element->NextSiblingElement()) { 
-        string ficheiro = element->Attribute("file"); 
+    XMLElement * element = current->FirstChildElement();
+    for (; element; element = element->NextSiblingElement()) {
+        string ficheiro = element->Attribute("file");
         char *aux = const_cast<char *>(ficheiro.c_str());
-        Shape* shape = readFile(aux); 
+        Shape* shape = readFile(aux);
         models.push_back(shape);
     }
     g->addShape(models);
@@ -183,15 +183,14 @@ void parseGroup(XMLElement * current2,Group *g, int level){
         else if(a.compare("tag")==0){
             parseType(current,g);
         }
-        else if (a.compare("group")==0) { 
+        else if (a.compare("group")==0) {
             Group* c = child(g);
             parseGroup(current,c,2);
         }
     }
 
-    current2 = current2->NextSiblingElement(); 
+    current2 = current2->NextSiblingElement();
     for(; current2 && level==1; current2 = current2->NextSiblingElement()){
-        std::cout << current2->Name() << std::endl;
         Group* newGroup = new Group();
         parseGroup(current2,newGroup,2);
     }
@@ -210,7 +209,6 @@ void readXML(char * path) {
     tinyxml2::XMLError eResult = doc.LoadFile(path);
     if (!eResult) {
         element = doc.FirstChildElement()->FirstChildElement();//<scene><group>
-        std::cout << element->Name() << " pai" << std::endl;
         parseGroup(element,p,1);
     }
 }
@@ -242,7 +240,6 @@ void changeSize(int w, int h) {
     glMatrixMode(GL_MODELVIEW);
 }
 
-
 void renderGroup(Group* g){
     glPushMatrix();
     vector<Action*> actions = g->getActions();
@@ -258,18 +255,21 @@ void renderGroup(Group* g){
     }
     vector<Shape*> models = g->getModels();
     for(int k = 0; k < models.size(); k++){
-        int points = models.at(k)->getSize();
-        glBegin(GL_TRIANGLES);
-        for(int j = 0; j < points; j++){
-            Point* p = models.at(k)->getPoint(j);
-            float x = p->getX();
-            float y = p->getY();
-            float z = p->getZ();
-            glVertex3f(x,y,z);
+            models[k]->draw();
+
         }
-        glEnd();
-    }
+
     glPopMatrix();
+}
+
+
+
+void passTovbo(){
+    for(int i=0;i<scene.size();i++){
+        vector<Shape*> models = scene[i]->getModels();
+        for(int j=0;j<models.size();j++)
+            models[j]->vbo();
+    }
 }
 
 
@@ -403,7 +403,6 @@ void printHelp(){
 
 
 
-
 int main(int argc, char * argv[]) {
     if(argc<2){
         return 0;
@@ -424,10 +423,9 @@ int main(int argc, char * argv[]) {
     glutInitWindowPosition(100,100);
     glutInitWindowSize(800,800);
     glutCreateWindow("CG@DI");
-    glEnableClientState(GL_VERTEX_ARRAY);
     glClearColor(0,0,0,0) ;
     glClear(GL_COLOR_BUFFER_BIT);
-
+        glewInit();
     // put callback registration here
     glutDisplayFunc(renderScene);
     glutReshapeFunc(changeSize);
@@ -436,11 +434,14 @@ int main(int argc, char * argv[]) {
     glutSpecialFunc(processSpecialKeys);
     glutMouseFunc(movement_mouse);
 
+
     // OpenGL settings
     glEnable(GL_DEPTH_TEST);
+    glEnableClientState(GL_VERTEX_ARRAY);
     glEnable(GL_CULL_FACE);
+
+    passTovbo();
 
     // enter GLUT's main loop
     glutMainLoop();
 }
-

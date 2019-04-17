@@ -23,8 +23,8 @@ public:
     Group* clone();
     void setModels(const vector<Shape*> &models);
     void setActions(const vector<Action*> &actions);
-    const vector<Shape*> &getModels() const;
-    const vector<Action*> &getActions() const;
+    vector<Shape*> getModels() ;
+    vector<Action*> getActions() ;
 };
 
 

@@ -21,17 +21,17 @@ void Group::addAction(Action *a) {
     this->actions.push_back(a);
 }
 
-void Group::addShape(vector<Shape*>s) { 
+void Group::addShape(vector<Shape*>s) {
     for(int i=0; i<s.size(); i++)
        this->models.push_back(s.at(i));
 }
 
 
-const vector<Action *> &Group::getActions() const {
+vector<Action *> Group::getActions() {
     return actions;
 }
 
-const vector<Shape *> &Group::getModels() const {
+vector<Shape *> Group::getModels() {
     return models;
 }
 
@@ -46,11 +46,3 @@ void Group::setModels(const vector<Shape*> &models) {
 Group* Group::clone(){
     return new Group(this);
 }
-
-
-
-
-
-
-
-
