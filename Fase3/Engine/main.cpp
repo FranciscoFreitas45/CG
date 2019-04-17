@@ -425,8 +425,12 @@ int main(int argc, char * argv[]) {
     glutCreateWindow("CG@DI");
     glClearColor(0,0,0,0) ;
     glClear(GL_COLOR_BUFFER_BIT);
-        glewInit();
-    // put callback registration here
+    #ifndef __APPLE__
+    // init GLEW
+    glewInit();
+    #endif
+    
+    
     glutDisplayFunc(renderScene);
     glutReshapeFunc(changeSize);
     glutIdleFunc(renderScene);
