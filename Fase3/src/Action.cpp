@@ -207,7 +207,7 @@ vector<Point*> Translate::createCurvePoints(){
     float pos[3], deriv[3];
     float t;
 
-    for(t = 0; t < 0; t+=0.01){
+    for(t = 0; t < 1; t+=0.01){
         getGlobalCatmullRomPoint(t,pos,deriv,this->points);
         Point* pt = new Point(pos[0],pos[1],pos[2]);
         this->curvePts.push_back(pt);
