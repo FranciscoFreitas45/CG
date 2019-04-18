@@ -74,7 +74,6 @@ void parseType(XMLElement *current,Group *g ){
     const char* tipo=(char*)malloc(sizeof(char)*10);
     current->QueryStringAttribute("type",&tipo);
     string str(tipo);
-    //printf(tipo);
     t->setType(tipo);
     g->addAction(t);
 }
@@ -94,7 +93,6 @@ void parserLights(XMLElement * current,Group *g) {
     if(!strcmp(current->Attribute("type"),"POINT"))
         type = true;
     l->setType(type);
-
     g->addLight(l);
 }
 
@@ -286,11 +284,6 @@ void parseGroup(XMLElement * current2,Group *g, int level){
 }
 
 
-
-
-
-
-
 void readXML(char * path) {
     XMLDocument doc;
     XMLElement *element;
@@ -301,8 +294,6 @@ void readXML(char * path) {
         parseGroup(element,p,1);
     }
 }
-
-
 
 
 void changeSize(int w, int h) {
@@ -329,12 +320,13 @@ void changeSize(int w, int h) {
     glMatrixMode(GL_MODELVIEW);
 }
 
+
 void renderGroup(Group* g){
     glPushMatrix();
     
     vector<Light*> lights = g->getLights();
     for(int k = 0; k < lights.size(); k++){
-            lights[k]->draw();
+        lights[k]->draw();
     }
 
     vector<Action*> actions = g->getActions();
@@ -348,11 +340,10 @@ void renderGroup(Group* g){
             act->apply();
         }
     }
+    
     vector<Shape*> models = g->getModels();
     for(int k = 0; k < models.size(); k++){
-    cout << "cenas" << "\n";
-
-            models[k]->draw();
+        models[k]->draw();
     }
 
     glPopMatrix();
@@ -370,15 +361,12 @@ void passTovbo(){
 }
 
 
-
-
 void movement_mouse (int button, int state, int x, int y){
     switch(button)
         case GLUT_LEFT_BUTTON:
             alpha -= M_PI / 16;
     glutPostRedisplay();
 }
-
 
 
 void renderScene(void) {

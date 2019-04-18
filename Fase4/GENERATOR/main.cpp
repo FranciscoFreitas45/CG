@@ -120,9 +120,7 @@ void generate_torus(char* r,char* R,char* slices,char * stacks,char * file_path)
 void generate_patch(char* t, char * file_orig, char * file_dest){
     float m;
     m=atof(t);
-    cout << "cenas\n";
     Shape *shape = parseBezierPatch(m, file_orig);
-    cout << "cenas\n";
     write_shape(shape,file_dest);
 }
 

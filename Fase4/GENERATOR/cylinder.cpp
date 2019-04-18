@@ -44,18 +44,18 @@ Shape* cylinder(float radius, float height, int slices, int stacks) {
             topo += step;
 
             s->insertPoint(new Point(r*cos(alfa),base,r*sin(alfa)));
-            s->insertNormal(new Point(0,1,0));
+            s->insertNormal(new Point(cos(alfa),0,sin(alfa)));
             s->insertPoint(new Point(r*cos(alfa),topo,r*sin(alfa)));
-            s->insertNormal(new Point(0,0,0));
+            s->insertNormal(new Point(cos(alfa),0,sin(alfa)));
             s->insertPoint(new Point(r*cos(alfa+ang),base,r*sin(alfa+ang)));
-            s->insertNormal(new Point(0,1,0));
+            s->insertNormal(new Point(cos(alfa+ang),0,sin(alfa+ang)));
 
             s->insertPoint(new Point(r*cos(alfa),topo,r*sin(alfa)));
-            s->insertNormal(new Point(0,1,0));
+            s->insertNormal(new Point(cos(alfa),0,sin(alfa)));
             s->insertPoint(new Point(r*cos(alfa+ang),topo,r*sin(alfa+ang)));
-            s->insertNormal(new Point(0,1,0));
+            s->insertNormal(new Point(cos(alfa+ang),0,sin(alfa+ang)));
             s->insertPoint(new Point(r*cos(alfa+ang),base,r*sin(alfa+ang)));
-            s->insertNormal(new Point(0,1,0));
+            s->insertNormal(new Point(cos(alfa+ang),0,sin(alfa+ang)));
         }
     }
     return s;

@@ -21,11 +21,18 @@ Shape* torus(float r, float R, int slices, int stacks) {
         for(int j=0; j<=stacks; j++){
             beta = j* b;
             s->insertPoint(new Point((R+r*cos(beta))*cos(alfa),r*sin(beta),(R+r*cos(beta))*sin(alfa)));
+            s->insertNormal(new Point(cos(alfa),r*sin(beta),sin(alfa)));
             s->insertPoint(new Point((R+r*cos(beta))*cos(alfa+a),r*sin(beta),(R+r*cos(beta))*sin(alfa+a)));
+            s->insertNormal(new Point(cos(alfa+a),r*sin(beta),sin(alfa+a)));
             s->insertPoint(new Point((R+r*cos(beta+b))*cos(alfa+a),r*sin(beta+b),(R+r*cos(beta+b))*sin(alfa+a)));
+            s->insertNormal(new Point(cos(alfa+a),r*sin(beta+b),sin(alfa+a)));
+
             s->insertPoint(new Point((R+r*cos(beta))*cos(alfa),r*sin(beta),(R+r*cos(beta))*sin(alfa)));
+            s->insertNormal(new Point(cos(alfa),r*sin(beta),sin(alfa)));
             s->insertPoint(new Point((R+r*cos(beta+b))*cos(alfa+a),r*sin(beta+b),(R+r*cos(beta+b))*sin(alfa+a)));
+            s->insertNormal(new Point(cos(alfa+a),r*sin(beta+b),sin(alfa+a)));
             s->insertPoint(new Point((R+r*cos(beta+b))*cos(alfa),r*sin(beta+b),(R+r*cos(beta+b))*sin(alfa)));
+            s->insertNormal(new Point(cos(alfa),r*sin(beta+b),sin(alfa)));
 
         }
     }
