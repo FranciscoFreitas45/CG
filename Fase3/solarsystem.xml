@@ -225,12 +225,12 @@
 			<group>
 				<tag type='L' />
 				<rotate angle='225' X='0' Y='1' Z='0'/>
-				<translate time="10">
-					<point X='40' Y='0' Z='-42' />
-					<point X='32' Y='0' Z='-38' />
-					<point X='24' Y='0' Z='-27' />
-					<point X='16' Y='0' Z='32' />
-                    <point X='-10' Y='0' Z='40' />
+				<translate time='10'>
+					<point X='38' Y='0' Z='-42' />
+					<point X='32' Y='0' Z='-30' />
+					<point X='30' Y='0' Z='-24' />
+					<point X='10' Y='0' Z='15' />
+                    <point X='-15' Y='0' Z='40' />
                     <point X='-25' Y='0' Z='10' />
 				</translate>
 				<scale X='0.5' Y='0.5' Z='0.5' />
