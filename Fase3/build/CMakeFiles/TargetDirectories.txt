@@ -1,4 +1,0 @@
-/home/cyborg/CG/Fase3/build/CMakeFiles/edit_cache.dir
-/home/cyborg/CG/Fase3/build/CMakeFiles/generator.dir
-/home/cyborg/CG/Fase3/build/CMakeFiles/rebuild_cache.dir
-/home/cyborg/CG/Fase3/build/CMakeFiles/engine.dir
