@@ -28,20 +28,21 @@
         </group>
         <group>
             <tag type='F' />
-            <colour R='50' G='0' B='0' />
-            <translate  X='-5' Y='12' Z='4' />
-            <rotate angle='45' X='1' Y='1' Z='1' />
-            <scale X='0.9' Y='0.9' Z='0.8' />
+            <colour R='200' G='250' B='0' />
+            <translate  X='-1' Y='13' Z='7' />
+            <rotate angle='-30' X='0' Y='1' Z='0' />
+            <rotate angle='-70' X='1' Y='1' Z='0' />
+            <scale X='1.2' Y='0.9' Z='1.2' />
             <models>
                 <model file='../files3d/plane.3d' /> '<!--'#SOL '-->'
             </models>
         </group>
         <group>
             <tag type='F' />
-            <colour R='50' G='0' B='0' />
-            <translate  X='4' Y='12' Z='-4' />
-            <rotate angle='-45' X='1' Y='1' Z='1' />
-            <scale X='0.9' Y='0.9' Z='0.8' />
+            <colour R='200' G='250' B='0' />
+            <translate  X='4' Y='13' Z='-4' />
+            <rotate angle='70' X='1' Y='1' Z='0' />
+            <scale X='1.2' Y='0.9' Z='1.2' />
             <models>
                 <model file='../files3d/plane.3d' /> '<!--'#SOL '-->'
             </models>
