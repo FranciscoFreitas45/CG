@@ -1,0 +1,51 @@
+<scene>
+    <group>
+        <group>
+            <tag type='F' />
+            <colour R='100' G='0' B='0' />
+            <scale X='2.2' Y='4' Z='2.2' />
+            <models>
+                <model file='../files3d/cylinder.3d' /> '<!--'#SOL '-->'
+            </models>
+        </group>
+        <group>
+            <tag type='F' />
+            <colour R='0' G='0' B='100' />
+            <translate  X='0' Y='4' Z='0' />
+            <scale X='3' Y='3' Z='3' />
+            <models>
+                <model file='../files3d/cone.3d' /> '<!--'#SOL '-->'
+            </models>
+        </group>
+        <group>
+            <tag type='F' />
+            <colour R='25' G='25' B='25' />
+            <translate  X='0' Y='20' Z='0' />
+            <scale X='2.1' Y='2.2' Z='2.1' />
+            <models>
+                <model file='../files3d/cone.3d' /> '<!--'#SOL '-->'
+            </models>
+        </group>
+        <group>
+            <tag type='F' />
+            <colour R='50' G='0' B='0' />
+            <translate  X='-5' Y='12' Z='4' />
+            <rotate angle='45' X='1' Y='1' Z='1' />
+            <scale X='0.9' Y='0.9' Z='0.8' />
+            <models>
+                <model file='../files3d/plane.3d' /> '<!--'#SOL '-->'
+            </models>
+        </group>
+        <group>
+            <tag type='F' />
+            <colour R='50' G='0' B='0' />
+            <translate  X='4' Y='12' Z='-4' />
+            <rotate angle='-45' X='1' Y='1' Z='1' />
+            <scale X='0.9' Y='0.9' Z='0.8' />
+            <models>
+                <model file='../files3d/plane.3d' /> '<!--'#SOL '-->'
+            </models>
+        </group>
+
+    </group>
+</scene>

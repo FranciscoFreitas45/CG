@@ -194,6 +194,38 @@
 						<model file='../files3d/sphere.3d' /> '<!--' #Urano LUA 4 '-->'
 					</models>
 				</group>
+                <group>'<!--'DISCO '-->'
+                    <translate X='27' Y='0' Z='0' />
+                    <rotate angle='-45' X='1' Y='0' Z='0' />
+                    <scale X='0.05' Y='0.05' Z='0.05' />
+                    <group>
+                        <tag type='F' />
+                        <colour R='100' G='0' B='0' />
+                        <scale X='4' Y='2' Z='4' />
+                        <models>
+                            <model file='../files3d/toruship.3d' /> '<!--'#BASE DA NAVE '-->'
+                        </models>
+                    </group>
+                    <group>
+                        <tag type='F' />
+                        <translate  X='0' Y='6' Z='0' />
+                        <colour R='0' G='197' B='100' />
+                        <scale X='4' Y='4' Z='4' />
+                        <models>
+                            <model file='../files3d/sphereship.3d' /> '<!--'#CABEÇA DA NAVE '-->'
+                        </models>
+                    </group>
+                    <group>
+                        <tag type='F' />
+                        <translate  X='0' Y='-4' Z='0' />
+                        <rotate angle='-180' X='1' Y='0' Z='0' />
+                        <colour R='100' G='0' B='0' />
+                        <scale X='3' Y='3' Z='3' />
+                        <models>
+                            <model file='../files3d/plane.3d' /> '<!--'#Tapar o fundo da nave '-->'
+                        </models>
+                    </group>
+                </group>
             </group>
             <group>
             	<tag type='P' />
@@ -239,5 +271,5 @@
 					<model file='../files3d/teapot.3d' />
 				</models>
 			</group>
-    </group>
+        </group>
 </scene>

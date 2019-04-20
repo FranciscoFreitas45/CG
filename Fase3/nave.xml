@@ -1,0 +1,32 @@
+<scene>
+    <group>
+        <rotate angle='-45' X='1' Y='0' Z='0' />
+        <group>
+            <tag type='F' />
+            <colour R='100' G='0' B='0' />
+            <scale X='4' Y='2' Z='4' />
+            <models>
+                <model file='../files3d/toruship.3d' /> '<!--'#SOL '-->'
+            </models>
+        </group>
+            <group>
+            <tag type='F' />
+            <translate  X='0' Y='6' Z='0' />
+            <colour R='0' G='197' B='100' />
+            <scale X='4' Y='4' Z='4' />
+            <models>
+                <model file='../files3d/sphereship.3d' /> '<!--'#SOL '-->'
+            </models>
+        </group>
+        <group>
+            <tag type='F' />
+            <translate  X='0' Y='-4' Z='0' />
+            <rotate angle='-180' X='1' Y='0' Z='0' />
+            <colour R='100' G='0' B='0' />
+            <scale X='3' Y='3' Z='3' />
+            <models>
+                <model file='../files3d/plane.3d' /> '<!--'#SOL '-->'
+            </models>
+        </group>
+    </group>
+    </scene>
