@@ -1,0 +1,26 @@
+<scene>
+        <group>
+            <translate X='-4' Y='0' Z='4' />
+            <rotate angle='10' X='0' Y='1' Z='0' />
+            <scale X="5" Y="5" Z="5" />
+            <group>
+            <rotate angle='-90' X='1' Y='0' Z='0' />
+            <models>
+                <model file="../files3d/teapot.3d" />
+            </models>
+            </group>
+            <group>
+                <translate X='4' Y='0' Z='0' />
+                <models>
+                    <model file="../files3d/teacup.3d" />
+                </models>
+            </group>
+                <group>
+                    <translate X='5.5' Y='0.5' Z='0' />
+                    <rotate angle='-45' X='1' Y='0' Z='0' />
+                    <models>
+                        <model file="../files3d/teaspoon.3d" />
+                    </models>
+                </group>
+            </group>
+</scene>

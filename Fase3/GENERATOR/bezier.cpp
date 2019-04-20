@@ -99,7 +99,7 @@ Shape* parseBezierPatch(float tess, char* file_orig){
     //apanha linhas de indices e guarda em arrays com indice igual ao indice da linha
     for(int i=0; i<n; i++){
         in.getline(str,1024*1024);
-        vector<string> split = splitString(str, ", ");
+        vector<string> split = splitString(str, ",");
         for(int j=0; j<split.size(); j++)
             indexes[i][j] = atoi(split[j].c_str());
     }
@@ -111,7 +111,7 @@ Shape* parseBezierPatch(float tess, char* file_orig){
     for(int i=0; i<ncontrolpoints; i++){
         c = 0;
         in.getline(str,1024*1024);
-        vector<string> split = splitString(str, ", ");
+        vector<string> split = splitString(str, ",");
         controlpoints[i] = new float[3];
         for(int j=0; j<split.size(); j++){
             controlpoints[i][j] = atof(split[j].c_str());
