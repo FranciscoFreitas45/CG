@@ -20,94 +20,190 @@ Shape* box(float length, float height, float width, int divisions){
         for(int j = 0; j < divisions; j++){
             for(int k = 0; k < divisions; k++) {
                 //FRONT
-                r->insertPoint(new Point(-length/2 + (i+1)*l,height/2 - j*h,width/2));
+                Point* p = new Point(-length/2 + (i+1)*l,height/2 - j*h,width/2);
+                r->insertPoint(p);
                 r->insertNormal(new Point(0,0,1));
-                r->insertPoint(new Point(-length/2 + i*l,height/2 - j*h,width/2));
-                r->insertNormal(new Point(0,0,1));
-                r->insertPoint(new Point(-length/2 + i*l,height/2 - (j+1)*h,width/2));
-                r->insertNormal(new Point(0,0,1));
+                r->insertTexture(p->toUV());
 
-                r->insertPoint(new Point(-length/2 + (i+1)*l,height/2 - (j+1)*h,width/2));
+                p = new Point(-length/2 + i*l,height/2 - j*h,width/2);
+                r->insertPoint(p);
                 r->insertNormal(new Point(0,0,1));
-                r->insertPoint(new Point(-length/2 + (i+1)*l,height/2 - j*h,width/2));
+                r->insertTexture(p->toUV());
+
+                p = new Point(-length/2 + i*l,height/2 - (j+1)*h,width/2);
+                r->insertPoint(p);
                 r->insertNormal(new Point(0,0,1));
-                r->insertPoint(new Point(-length/2 + i*l,height/2 - (j+1)*h,width/2));
+                r->insertTexture(p->toUV());
+
+                p = new Point(-length/2 + (i+1)*l,height/2 - (j+1)*h,width/2);
+                r->insertPoint(p);
                 r->insertNormal(new Point(0,0,1));
+                r->insertTexture(p->toUV());
+
+                p = new Point(-length/2 + (i+1)*l,height/2 - j*h,width/2);
+                r->insertPoint(p);
+                r->insertNormal(new Point(0,0,1));
+                r->insertTexture(p->toUV());
+
+                p = new Point(-length/2 + i*l,height/2 - (j+1)*h,width/2);
+                r->insertPoint(p);
+                r->insertNormal(new Point(0,0,1));
+                r->insertTexture(p->toUV());
 
                 //BACK
-                r->insertPoint(new Point(-length/2 + i*l,height/2 - (j+1)*h,-width/2));
+                p = new Point(-length/2 + i*l,height/2 - (j+1)*h,-width/2);
+                r->insertPoint(p);
                 r->insertNormal(new Point(0,0,-1));
-                r->insertPoint(new Point(-length/2 + (i+1)*l,height/2 - j*h,-width/2));
-                r->insertNormal(new Point(0,0,-1));
-                r->insertPoint(new Point(-length/2 + (i+1)*l,height/2 - (j+1)*h,-width/2));
-                r->insertNormal(new Point(0,0,-1));
+                r->insertTexture(p->toUV());
 
-                r->insertPoint(new Point(-length/2 + i*l,height/2 - (j+1)*h,-width/2));
+                p = new Point(-length/2 + (i+1)*l,height/2 - j*h,-width/2);
+                r->insertPoint(p);
                 r->insertNormal(new Point(0,0,-1));
-                r->insertPoint(new Point(-length/2 + i*l,height/2 - j*h,-width/2));
+                r->insertTexture(p->toUV());
+
+                p = new Point(-length/2 + (i+1)*l,height/2 - (j+1)*h,-width/2);
+                r->insertPoint(p);
                 r->insertNormal(new Point(0,0,-1));
-                r->insertPoint(new Point(-length/2 + (i+1)*l,height/2 - j*h,-width/2));
+                r->insertTexture(p->toUV());
+
+                p = new Point(-length/2 + i*l,height/2 - (j+1)*h,-width/2);
+                r->insertPoint(p);
                 r->insertNormal(new Point(0,0,-1));
+                r->insertTexture(p->toUV());
+
+                p = new Point(-length/2 + i*l,height/2 - j*h,-width/2);
+                r->insertPoint(p);
+                r->insertNormal(new Point(0,0,-1));
+                r->insertTexture(p->toUV());
+
+                p = new Point(-length/2 + (i+1)*l,height/2 - j*h,-width/2);
+                r->insertPoint(p);
+                r->insertNormal(new Point(0,0,-1));
+                r->insertTexture(p->toUV());
 
                 //TOP
-                r->insertPoint(new Point(-length/2 + i*l,height/2,-width/2 + (k+1)*w));
+                p = new Point(-length/2 + i*l,height/2,-width/2 + (k+1)*w);
+                r->insertPoint(p);
                 r->insertNormal(new Point(0,1,0));
-                r->insertPoint(new Point(-length/2 + (i+1)*l,height/2,-width/2 + (k+1)*w));
-                r->insertNormal(new Point(0,1,0));
-                r->insertPoint(new Point(-length/2 + (i+1)*l,height/2,-width/2 + k*w));
-                r->insertNormal(new Point(0,1,0));
+                r->insertTexture(p->toUV());
 
-                r->insertPoint(new Point(-length/2 + i*l,height/2,-width/2 + (k+1)*w));
+                p = new Point(-length/2 + (i+1)*l,height/2,-width/2 + (k+1)*w);
+                r->insertPoint(p);
                 r->insertNormal(new Point(0,1,0));
-                r->insertPoint(new Point(-length/2 + (i+1)*l,height/2,-width/2 + k*w));
+                r->insertTexture(p->toUV());
+
+                p = new Point(-length/2 + (i+1)*l,height/2,-width/2 + k*w);
+                r->insertPoint(p);
                 r->insertNormal(new Point(0,1,0));
-                r->insertPoint(new Point(-length/2 + i*l,height/2,-width/2 + k*w));
+                r->insertTexture(p->toUV());
+
+                p = new Point(-length/2 + i*l,height/2,-width/2 + (k+1)*w);
+                r->insertPoint(p);
                 r->insertNormal(new Point(0,1,0));
+                r->insertTexture(p->toUV());
+
+                p = new Point(-length/2 + (i+1)*l,height/2,-width/2 + k*w);
+                r->insertPoint(p);
+                r->insertNormal(new Point(0,1,0));
+                r->insertTexture(p->toUV());
+
+                p = new Point(-length/2 + i*l,height/2,-width/2 + k*w);
+                r->insertPoint(p);
+                r->insertNormal(new Point(0,1,0));
+                r->insertTexture(p->toUV());
 
                 //BASE
-                r->insertPoint(new Point(-length/2 + i*l,-height/2,-width/2 + (k+1)*w));
+                p = new Point(-length/2 + i*l,-height/2,-width/2 + (k+1)*w);
+                r->insertPoint(p);
                 r->insertNormal(new Point(0,-1,0));
-                r->insertPoint(new Point(-length/2 + i*l,-height/2,-width/2 + k*w));
-                r->insertNormal(new Point(0,-1,0));
-                r->insertPoint(new Point(-length/2 + (i+1)*l,-height/2,-width/2 + k*w));
-                r->insertNormal(new Point(0,-1,0));
+                r->insertTexture(p->toUV());
 
-                r->insertPoint(new Point(-length/2 + i*l,-height/2,-width/2 + (k+1)*w));
+                p = new Point(-length/2 + i*l,-height/2,-width/2 + k*w);
+                r->insertPoint(p);
                 r->insertNormal(new Point(0,-1,0));
-                r->insertPoint(new Point(-length/2 + (i+1)*l,-height/2,-width/2 + k*w));
+                r->insertTexture(p->toUV());
+
+                p = new Point(-length/2 + (i+1)*l,-height/2,-width/2 + k*w);
+                r->insertPoint(p);
                 r->insertNormal(new Point(0,-1,0));
-                r->insertPoint(new Point(-length/2 + (i+1)*l,-height/2,-width/2 + (k+1)*w));
+                r->insertTexture(p->toUV());
+
+                p = new Point(-length/2 + i*l,-height/2,-width/2 + (k+1)*w);
+                r->insertPoint(p);
                 r->insertNormal(new Point(0,-1,0));
+                r->insertTexture(p->toUV());
+
+                p = new Point(-length/2 + (i+1)*l,-height/2,-width/2 + k*w);
+                r->insertPoint(p);
+                r->insertNormal(new Point(0,-1,0));
+                r->insertTexture(p->toUV());
+
+                p = new Point(-length/2 + (i+1)*l,-height/2,-width/2 + (k+1)*w);
+                r->insertPoint(p);
+                r->insertNormal(new Point(0,-1,0));
+                r->insertTexture(p->toUV());
 
                 //RIGHT
-                r->insertPoint(new Point(length/2,height/2 - (j+1)*h,width/2 - k*w));
+                p = new Point(length/2,height/2 - (j+1)*h,width/2 - k*w);
+                r->insertPoint(p);
                 r->insertNormal(new Point(1,0,0));
-                r->insertPoint(new Point(length/2,height/2 - (j+1)*h,width/2 - (k+1)*w));
-                r->insertNormal(new Point(1,0,0));
-                r->insertPoint(new Point(length/2,height/2 - j*h,width/2 - (k+1)*w));
-                r->insertNormal(new Point(1,0,0));
+                r->insertTexture(p->toUV());
 
-                r->insertPoint(new Point(length/2,height/2 - (j+1)*h,width/2 - k*w));
+                p = new Point(length/2,height/2 - (j+1)*h,width/2 - (k+1)*w);
+                r->insertPoint(p);
                 r->insertNormal(new Point(1,0,0));
-                r->insertPoint(new Point(length/2,height/2 - j*h,width/2 - (k+1)*w));
+                r->insertTexture(p->toUV());
+
+                p = new Point(length/2,height/2 - j*h,width/2 - (k+1)*w);
+                r->insertPoint(p);
                 r->insertNormal(new Point(1,0,0));
-                r->insertPoint(new Point(length/2,height/2 - j*h,width/2 - k*w));
+                r->insertTexture(p->toUV());
+
+                p = new Point(length/2,height/2 - (j+1)*h,width/2 - k*w);
+                r->insertPoint(p);
                 r->insertNormal(new Point(1,0,0));
+                r->insertTexture(p->toUV());
+
+                p = new Point(length/2,height/2 - j*h,width/2 - (k+1)*w);
+                r->insertPoint(p);
+                r->insertNormal(new Point(1,0,0));
+                r->insertTexture(p->toUV());
+
+                p = new Point(length/2,height/2 - j*h,width/2 - k*w);
+                r->insertPoint(p);
+                r->insertNormal(new Point(1,0,0));
+                r->insertTexture(p->toUV());
 
                 //LEFT
-                r->insertPoint(new Point(-length/2,height/2 - (j+1)*h,width/2 - k*w));
+                p = new Point(-length/2,height/2 - (j+1)*h,width/2 - k*w);
+                r->insertPoint(p);
                 r->insertNormal(new Point(-1,0,0));
-                r->insertPoint(new Point(-length/2,height/2 - j*h,width/2 - k*w));
-                r->insertNormal(new Point(-1,0,0));
-                r->insertPoint(new Point(-length/2,height/2 - j*h,width/2 - (k+1)*w));
-                r->insertNormal(new Point(-1,0,0));
+                r->insertTexture(p->toUV());
 
-                r->insertPoint(new Point(-length/2,height/2 - (j+1)*h,width/2 - k*w));
+                p = new Point(-length/2,height/2 - j*h,width/2 - k*w);
+                r->insertPoint(p);
                 r->insertNormal(new Point(-1,0,0));
-                r->insertPoint(new Point(-length/2,height/2 - j*h,width/2 - (k+1)*w));
+                r->insertTexture(p->toUV());
+
+                p = new Point(-length/2,height/2 - j*h,width/2 - (k+1)*w);
+                r->insertPoint(p);
                 r->insertNormal(new Point(-1,0,0));
-                r->insertPoint(new Point(-length/2,height/2 - (j+1)*h,width/2 - (k+1)*w));
+                r->insertTexture(p->toUV());
+
+                p = new Point(-length/2,height/2 - (j+1)*h,width/2 - k*w);
+                r->insertPoint(p);
                 r->insertNormal(new Point(-1,0,0));
+                r->insertTexture(p->toUV());
+
+                p = new Point(-length/2,height/2 - j*h,width/2 - (k+1)*w);
+                r->insertPoint(p);
+                r->insertNormal(new Point(-1,0,0));
+                r->insertTexture(p->toUV());
+
+                p = new Point(-length/2,height/2 - (j+1)*h,width/2 - (k+1)*w);
+                r->insertPoint(p);
+                r->insertNormal(new Point(-1,0,0));
+                r->insertTexture(p->toUV());
             }
         }
     }

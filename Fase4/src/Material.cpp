@@ -26,17 +26,30 @@ Material::Material(Action* diff, Action* amb, Action* spec, Action* emi, float s
 		ambient[2] = amb->getZ();
 		ambient[3] = 1;
 	}
-
-	specular[0] = spec->getX();
-	specular[1] = spec->getY();
-	specular[2] = spec->getZ();
-	specular[3] = 1;
-
-	emission[0] = emi->getX();
-	emission[1] = emi->getY();
-	emission[2] = emi->getZ();
-	emission[3] = 1;
-
+	if(spec != NULL){
+		specular[0] = spec->getX();
+		specular[1] = spec->getY();
+		specular[2] = spec->getZ();
+		specular[3] = 1;
+	}
+	else{
+		specular[0] = 0;
+		specular[1] = 0;
+		specular[2] = 0;
+		specular[3] = 1;
+	}
+	if(emi != NULL){
+		emission[0] = emi->getX();
+		emission[1] = emi->getY();
+		emission[2] = emi->getZ();
+		emission[3] = 1;
+	}
+	else{
+		emission[0] = 0;
+		emission[1] = 0;
+		emission[2] = 0;
+		emission[3] = 1;
+	}
 	shininess = shine;
 }
 

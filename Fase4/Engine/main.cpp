@@ -5,10 +5,14 @@
 #include <GL/glew.h>
 #include <GL/glut.h>
 #endif
+#include <stdlib.h>
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <stdlib.h> 
+#include <sstream>
+#include <stdlib.h>
+#include <vector>
 #include "tinyxml2.h"
 #include "../src/Point.h"
 #include "../src/Shape.h"
@@ -24,15 +28,16 @@ GLfloat pos[4] = {0.0,3.0,0.0,0.0};
 
 
 vector<Group*> scene;
-int linha = GL_LINE;
+int linha = GL_FILL;
 float alpha = 0.61547999;
 float beta = 0.61547999;
 float rad = 70;
 int tam=0;
 
 
+
 Shape* readFile(char* FILENAME) {
-    int i = 0, points = 0, normals = 0;
+    int i = 0, points = 0, normals = 0, texs = 0;
     Shape *s = new Shape();
     ifstream file(FILENAME);
     if (file.is_open()) {
@@ -54,6 +59,27 @@ Shape* readFile(char* FILENAME) {
             s->insertNormal(p);
             i++;
         }
+        i = 0;
+        int t = 0;
+        getline(file,line);
+        texs = atoi(line.c_str());
+        float* uv = (float*)malloc(texs*2*sizeof(float));
+        while (i < texs) {
+            getline(file,line);
+            vector<string> tokens;
+            stringstream check1(line);
+            string intermediate;
+            while(getline(check1, intermediate, ' ')){
+                tokens.push_back(intermediate);
+            }
+            uv[t] = atof(tokens[0].c_str());
+            uv[t+1] = atof(tokens[1].c_str());
+            printf("%d %d\n",uv[t],uv[t+1]);
+            s->insertTexture(uv+t);
+            t+=2;
+            i++;
+        }
+        free(uv);
         file.close();
     }
     else {
@@ -186,9 +212,11 @@ void parserModels(XMLElement * current,Group *g){
     Action* diffuse = NULL;
 	Action* ambient = NULL;
 	Action* specular = NULL;
-	Action* emission = NULL;
+    Action* emission = NULL;
+    string textureName;
+    GLuint textureID;
     float shininess = 0;
-    bool isThereMaterial = false;
+    bool isThereMaterial = false, hasTexture = false;
     XMLElement * element = current->FirstChildElement();
     for (; element; element = element->NextSiblingElement()) {
         string ficheiro = element->Attribute("file");
@@ -229,16 +257,25 @@ void parserModels(XMLElement * current,Group *g){
             shininess = stof(element->Attribute("shine"));
             isThereMaterial = true;
         }
+        
+        if(element->Attribute("texture")){
+            textureName = element->Attribute("texture");
+            hasTexture = true;
+        }
         char *aux = const_cast<char *>(ficheiro.c_str());
         Shape* shape = readFile(aux);
         if(isThereMaterial){
             Material* m = new Material(diffuse,ambient,specular,emission,shininess); 
             shape->setMaterial(m);
         }
+        if(hasTexture){
+            shape->loadTexture(textureName);
+        }
         models.push_back(shape);
     }
     g->addShape(models);
     Group* newGroup = g->clone();
+
     scene.push_back(newGroup);
 }
 
@@ -334,7 +371,7 @@ void renderGroup(Group* g){
         Action* act = actions.at(i);
         if (Type* t = dynamic_cast<Type*>(act)){
             t->apply(&linha);
-            glPolygonMode(GL_FRONT,linha);
+            glPolygonMode(GL_FRONT_AND_BACK,linha);
         }
        else {
             act->apply();
@@ -503,9 +540,9 @@ int main(int argc, char * argv[]) {
         printHelp();
         return 0;
     }
-
     Shape s = Shape();
     readXML(argv[1]);
+    cout << "cenas\n"<<endl;;
     // put GLUT init here
     glutInit(&argc,argv);
     glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
@@ -518,25 +555,34 @@ int main(int argc, char * argv[]) {
     // init GLEW
     glewInit();
     #endif
-
+    cout << "cenas\n"<<endl;;
     glutDisplayFunc(renderScene);
     glutReshapeFunc(changeSize);
     glutIdleFunc(renderScene);
     glutKeyboardFunc(processKeys);
     glutSpecialFunc(processSpecialKeys);
     glutMouseFunc(movement_mouse);
-
     // OpenGL settings
+    cout << "cenas\n"<<endl;;
+    ilInit();
+    ilEnable(IL_ORIGIN_SET);
+    ilOriginFunc(IL_ORIGIN_LOWER_LEFT);
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
+	glEnable(GL_TEXTURE_2D);
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_NORMAL_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
+    glEnable(GL_NORMALIZE);
 
     glLightfv(GL_LIGHT0, GL_AMBIENT, amb);
     glLightfv(GL_LIGHT0, GL_DIFFUSE, diff);
-
+    
+    cout << "cenas"<<endl;;
     passTovbo();
-
+    cout << "cenas"<<endl;;
     glutMainLoop();
+    return 1;
 }

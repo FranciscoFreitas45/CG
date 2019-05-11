@@ -1,12 +1,5 @@
-#ifdef __APPLE__
-#include <GLUT/glut.h>
-#else
-#include <GL/glew.h>
-#include <GL/glut.h>
-#endif
 #include "Shape.h"
-#include <vector>
-#include <cstdlib>
+
 
 
 using namespace std;
@@ -20,12 +13,24 @@ void Shape::insertNormal(Point* p){
     this->normal.push_back(p);
 }
 
+void Shape::insertTexture(float uv[2]){
+    this->texture.push_back(uv);
+}
+
+void Shape::setTexID(GLuint t){
+    this->texID = t;
+}
+
 Point* Shape::getPoint(int i) {
     return this->points.at(i);
 }
 
 Point* Shape::getNormal(int i) {
     return this->normal.at(i);
+}
+
+float* Shape::getTexture(int i) {
+    return this->texture.at(i);
 }
 
 Material* Shape::getMaterial() {
@@ -40,6 +45,10 @@ int Shape::getNormalSize(){
     return this->normal.size();
 }
 
+int Shape::getTextureSize(){
+    return this->texture.size();
+}
+
 int Shape::getSize(){
     return this->points.size();
 }
@@ -47,7 +56,8 @@ int Shape::getSize(){
 void Shape::vbo() {
     float *vertex = (float *) malloc(sizeof(float) * 3 * this->points.size());
     float *n = (float *) malloc(sizeof(float) * 3 * this->normal.size());
-    int index = 0, index2 = 0;
+    float *t = (float *) malloc(sizeof(float) * 2 * this->texture.size());
+    int index = 0, index2 = 0, index3 = 0;
 
     for (int i = 0; i < this->points.size(); i++) {
         vertex[index] = this->points[i]->getX();
@@ -56,38 +66,76 @@ void Shape::vbo() {
         index += 3;
     }
 
-    if(this->normal.size()){
-        for (int i = 0; i < this->normal.size(); i++) {
-            n[index2] = this->normal[i]->getX();
-            n[index2 + 1] = this->normal[i]->getY();
-            n[index2 + 2] = this->normal[i]->getZ();
-            index2 += 3;
-        }
-        glGenBuffers(2, buffer);
-        glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(float) * index, vertex, GL_STATIC_DRAW);
-        glBindBuffer(GL_ARRAY_BUFFER,buffer[1]);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(float) * index2, n, GL_STATIC_DRAW);
+    for (int i = 0; i < this->normal.size(); i++) {
+        n[index2] = this->normal[i]->getX();
+        n[index2 + 1] = this->normal[i]->getY();
+        n[index2 + 2] = this->normal[i]->getZ();
+        index2 += 3;
     }
-    else{
-        glGenBuffers(1, buffer);
-        glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(float) * index, vertex, GL_STATIC_DRAW);
-    } 
+
+    for (int i = 0; i < this->texture.size(); i++) {
+        t[index3] = this->texture[i][0];
+        t[index3 + 1] = this->texture[i][1];
+        index3 += 2;
+    }
+
+    glGenBuffers(1, &vertices);
+	glBindBuffer(GL_ARRAY_BUFFER,vertices);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * index * 3, vertex,     GL_STATIC_DRAW);
+
+	glGenBuffers(1, &normals);
+	glBindBuffer(GL_ARRAY_BUFFER,normals);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * index2 * 3, n,     GL_STATIC_DRAW);
+
+	glGenBuffers(1, &textures);
+	glBindBuffer(GL_ARRAY_BUFFER,textures);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * index3 * 2, t,     GL_STATIC_DRAW);
+
     free(vertex);
     free(n);
+    free(t);
 }
+
+void Shape::loadTexture(string texture_file) {
+    string path = texture_file;
+    unsigned int tw,th;
+    unsigned char *texData;
+
+    unsigned int ima[1];
+
+    ilInit();
+    ilGenImages(1, ima);
+    ilBindImage(ima[0]);
+    ilLoadImage((ILstring)path.c_str());
+    tw = ilGetInteger(IL_IMAGE_WIDTH);
+    th = ilGetInteger(IL_IMAGE_HEIGHT);
+    ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
+    texData = ilGetData();
+
+    glGenTextures(1, &texID);
+    glBindTexture(GL_TEXTURE_2D, texID);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tw, th, 0, GL_RGBA, GL_UNSIGNED_BYTE, texData);
+}
+
 
 void Shape::draw(){
     if(material)
         this->material->draw();
           
-    glBindBuffer(GL_ARRAY_BUFFER,buffer[0]);
+    glBindBuffer(GL_ARRAY_BUFFER,vertices);
     glVertexPointer(3,GL_FLOAT,0, 0);
-    if(normal.size()!=0){
-        glBindBuffer(GL_ARRAY_BUFFER, buffer[1]);
-        glNormalPointer(GL_FLOAT, 0, 0);
-    }
+    
+    glBindBuffer(GL_ARRAY_BUFFER,normals);
+	glNormalPointer(GL_FLOAT,0,0);
+
+	glBindBuffer(GL_ARRAY_BUFFER,textures);
+    glTexCoordPointer(2,GL_FLOAT,0,0);
+    
+	glBindTexture(GL_TEXTURE_2D, texID);
     glEnable(GL_LIGHTING);
     glDrawArrays(GL_TRIANGLES, 0, getSize() * 3);
     glDisable(GL_LIGHTING);

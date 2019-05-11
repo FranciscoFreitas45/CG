@@ -7,6 +7,30 @@
 
 using namespace std;
 
+Point* Point::crossProduct(Point* a, Point* b) {
+    float cx, cy, cz;
+    cx = a->y * b->z + a->z * b->y;
+    cy = a->z * b->x + a->x * b->z;
+    cz = a->x * b->y + a->y * b->x;
+    return new Point(cx,cy,cz);
+}
+
+
+Point* Point::normalize() {
+    float ax = this->x, ay = this->y, az = this->z;
+    float magnitude = sqrt((ax*ax) + (ay*ay) + (az*az));
+    return new Point(ax/magnitude,ay/magnitude,az/magnitude);
+}
+
+float* Point::toUV() {
+    float ax = this->x, ay = this->y, az = this->z;
+    float* uv = (float *)malloc(2*sizeof(float));
+    uv[0] = 0.5+(atan2(az,ax)/2*M_PI);
+    uv[1] = 0.5-(asin(ay)/M_PI);
+    cout << uv[0] << " ,,, " << uv[1] << " ... " << 0.5-(asin(ay)/M_PI) << "\n";
+    return uv;
+}
+
 
 Point::Point(float x, float y, float z){
         this->x=x;

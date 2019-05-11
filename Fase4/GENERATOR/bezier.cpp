@@ -96,6 +96,7 @@ Shape* parseBezierPatch(float tess, char* file_orig){
     in.getline(str,1024*1024);
     int n = atoi(str);
     npatches = n;
+    
     //apanha linhas de indices e guarda em arrays com indice igual ao indice da linha
     for(int i=0; i<n; i++){
         in.getline(str,1024*1024);
@@ -103,10 +104,12 @@ Shape* parseBezierPatch(float tess, char* file_orig){
         for(int j=0; j<split.size(); j++)
             indexes[i][j] = atoi(split[j].c_str());
     }
+    
     // linha com numero de pontos de controlo (basicamente = ao numero de linhas a ler a seguir a esta)
     in.getline(str,1024*1024);
     ncontrolpoints = atoi(str);
     float** controlpoints = new float*[ncontrolpoints];
+    
     // ler pontos de controlo
     for(int i=0; i<ncontrolpoints; i++){
         c = 0;
@@ -122,6 +125,7 @@ Shape* parseBezierPatch(float tess, char* file_orig){
 
     float u1, v1, u2, v2, inc = 1.0/tess;
     Point* res[npatches][4];
+    Point* temp, *normal;
 
     for(int i=0; i<npatches; i++){
         for(int j=0; j<tess; j++){
@@ -137,13 +141,31 @@ Shape* parseBezierPatch(float tess, char* file_orig){
                 res[i][3] = calcBezierPatch(controlpoints, i, u2,v2);
 
                 //0,1,3
-                s->insertPoint(new Point(res[i][0]->getX(),res[i][0]->getY(),res[i][0]->getZ()));
-                s->insertPoint(new Point(res[i][1]->getX(),res[i][1]->getY(),res[i][1]->getZ()));
-                s->insertPoint(new Point(res[i][3]->getX(),res[i][3]->getY(),res[i][3]->getZ()));
+                temp = new Point(res[i][0]->getX(),res[i][0]->getY(),res[i][0]->getZ());
+                s->insertPoint(temp);
+                normal = temp->normalize();
+                s->insertNormal(new Point(normal->getX(),normal->getY(),normal->getZ()));
+                temp = new Point(res[i][1]->getX(),res[i][1]->getY(),res[i][1]->getZ());
+                s->insertPoint(temp);
+                normal = temp->normalize();
+                s->insertNormal(new Point(normal->getX(),normal->getY(),normal->getZ()));
+                temp = new Point(res[i][3]->getX(),res[i][3]->getY(),res[i][3]->getZ());
+                s->insertPoint(temp);
+                normal = temp->normalize();
+                s->insertNormal(new Point(normal->getX(),normal->getY(),normal->getZ()));
                 //0,3,2
-                s->insertPoint(new Point(res[i][0]->getX(),res[i][0]->getY(),res[i][0]->getZ()));
-                s->insertPoint(new Point(res[i][3]->getX(),res[i][3]->getY(),res[i][3]->getZ()));
-                s->insertPoint(new Point(res[i][2]->getX(),res[i][2]->getY(),res[i][2]->getZ()));
+                temp = new Point(res[i][0]->getX(),res[i][0]->getY(),res[i][0]->getZ());
+                s->insertPoint(temp);
+                normal = temp->normalize();
+                s->insertNormal(new Point(normal->getX(),normal->getY(),normal->getZ()));
+                temp = new Point(res[i][3]->getX(),res[i][3]->getY(),res[i][3]->getZ());
+                s->insertPoint(temp);
+                normal = temp->normalize();
+                s->insertNormal(new Point(normal->getX(),normal->getY(),normal->getZ()));
+                temp = new Point(res[i][2]->getX(),res[i][2]->getY(),res[i][2]->getZ());
+                s->insertPoint(temp);
+                normal = temp->normalize();
+                s->insertNormal(new Point(normal->getX(),normal->getY(),normal->getZ()));
             }
         }
     }

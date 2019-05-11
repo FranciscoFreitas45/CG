@@ -20,20 +20,19 @@
 #include "torus.h"
 
 
-
-
 void write_shape(Shape* s, char* file_path){
     char buff[1024];
     char path[1024];
     int i;
     int size = s->getSize();
     Point* p;
+    float* uv;
 
     system("mkdir -p ../files3d/ ");
     strcpy(path,"../files3d/");
     strcat(path,file_path);
     ofstream file (path,std::ofstream::out);
-
+    
     sprintf(buff, "%d\n", size);
     file << buff;
     for(i=0;i<size;i++){
@@ -41,18 +40,28 @@ void write_shape(Shape* s, char* file_path){
         sprintf(buff, "%f %f %f\n", p->getX(), p->getY(), p->getZ());
         file << buff;
     }
+    
     size = s->getNormalSize();
+    if(size > 0){
     sprintf(buff, "%d\n", size);
     file << buff;
     for(i=0;i<size;i++){
         p= s->getNormal(i);
         sprintf(buff, "%f %f %f\n", p->getX(), p->getY(), p->getZ());
         file << buff;
-    }
+    }}
+
+    size = s->getTextureSize();
+    if(size > 0){
+    sprintf(buff, "%d\n", size);
+    file << buff;
+    for(i=0;i<size;i++){
+        uv= s->getTexture(i);
+        sprintf(buff, "%f %f\n", uv[0], uv[1]);
+        file << buff;
+    }}
     file.close();
 }
-
-
 
 
 void generate_plane(char* size, char* file_path){
