@@ -4,7 +4,7 @@
             <tag type='L' />
             <scale X='1' Y='1' Z='1' />
             <models>
-                <model file="../files3d/sphere.3d" />
+                <model file="../files3d/sun.3d" />
             </models>
        </group>
     </group>

@@ -81,15 +81,15 @@ void Shape::vbo() {
 
     glGenBuffers(1, &vertices);
 	glBindBuffer(GL_ARRAY_BUFFER,vertices);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * index * 3, vertex,     GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * index, vertex,     GL_STATIC_DRAW);
 
 	glGenBuffers(1, &normals);
 	glBindBuffer(GL_ARRAY_BUFFER,normals);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * index2 * 3, n,     GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * index2, n,     GL_STATIC_DRAW);
 
 	glGenBuffers(1, &textures);
 	glBindBuffer(GL_ARRAY_BUFFER,textures);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * index3 * 2, t,     GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * index3, t,     GL_STATIC_DRAW);
 
     free(vertex);
     free(n);
@@ -137,8 +137,8 @@ void Shape::draw(){
     glTexCoordPointer(2,GL_FLOAT,0,0);
     
     glBindTexture(GL_TEXTURE_2D, texID);
-    glDrawArrays(GL_TRIANGLES, 0, getSize() * 3);
     glEnable(GL_LIGHTING);
+    glDrawArrays(GL_TRIANGLES, 0, getSize() * 3);
     glDisable(GL_LIGHTING);
     glBindTexture(GL_TEXTURE_2D, 0);
 }
