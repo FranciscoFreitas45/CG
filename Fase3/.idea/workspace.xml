@@ -13,10 +13,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="913735f4-1cd5-4429-9496-787a06ee8116" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Engine/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Engine/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Fase4/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Fase4/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Fase4/Engine/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Fase4/Engine/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Fase4/src/Light.h" beforeDir="false" afterPath="$PROJECT_DIR$/../Fase4/src/Light.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Fase4/src/Material.h" beforeDir="false" afterPath="$PROJECT_DIR$/../Fase4/src/Material.h" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -36,23 +35,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Engine/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="32" column="22" lean-forward="true" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="22" />
-              <folding>
-                <element signature="e#472#836#0" />
-                <element signature="e#839#913#0" />
-                <element signature="e#916#1177#0" />
-                <element signature="e#1180#2048#0" />
-                <element signature="e#2051#2628#0" />
-                <element signature="e#2631#3011#0" />
-                <element signature="e#3014#3398#0" />
-                <element signature="e#3401#3877#0" />
-                <element signature="e#3880#5016#0" />
-                <element signature="e#5024#5319#0" />
-                <element signature="e#5324#5918#0" />
-                <element signature="e#5920#6436#0" />
-                <element signature="e#6440#6628#0" />
-              </folding>
+            <state relative-caret-position="192">
+              <caret line="570" column="39" lean-forward="true" selection-start-line="567" selection-start-column="3" selection-end-line="570" selection-end-column="39" />
             </state>
           </provider>
         </entry>
@@ -77,9 +61,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1360" />
-    <option name="width" value="1920" />
-    <option name="height" value="1080" />
+    <option name="y" value="312" />
+    <option name="width" value="1360" />
+    <option name="height" value="738" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -87,6 +71,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -103,12 +88,11 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/CG-master" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
@@ -152,30 +136,31 @@
       <option name="presentableId" value="Default" />
       <updated>1557599541788</updated>
       <workItem from="1557599543100" duration="1457000" />
-      <workItem from="1557698101957" duration="6567000" />
+      <workItem from="1557698101957" duration="6737000" />
+      <workItem from="1557748489556" duration="355000" />
+      <workItem from="1557749221692" duration="247000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8024000" />
+    <option name="totallyTimeSpent" value="8796000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1360" y="0" width="1920" height="1080" extended-state="6" />
-    <editor active="true" />
+    <frame x="0" y="312" width="1360" height="738" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.178762" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18340944" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32983193" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32983193" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39915967" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Database Changes" order="7" />
       <window_info anchor="bottom" id="Messages" order="8" weight="0.32983193" />
-      <window_info anchor="bottom" id="Terminal" order="9" weight="0.32983193" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.3295082" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="11" />
       <window_info anchor="bottom" id="CMake" order="12" />
@@ -194,23 +179,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Engine/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="32" column="22" lean-forward="true" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="22" />
-          <folding>
-            <element signature="e#472#836#0" />
-            <element signature="e#839#913#0" />
-            <element signature="e#916#1177#0" />
-            <element signature="e#1180#2048#0" />
-            <element signature="e#2051#2628#0" />
-            <element signature="e#2631#3011#0" />
-            <element signature="e#3014#3398#0" />
-            <element signature="e#3401#3877#0" />
-            <element signature="e#3880#5016#0" />
-            <element signature="e#5024#5319#0" />
-            <element signature="e#5324#5918#0" />
-            <element signature="e#5920#6436#0" />
-            <element signature="e#6440#6628#0" />
-          </folding>
+        <state relative-caret-position="192">
+          <caret line="570" column="39" lean-forward="true" selection-start-line="567" selection-start-column="3" selection-end-line="570" selection-end-column="39" />
         </state>
       </provider>
     </entry>

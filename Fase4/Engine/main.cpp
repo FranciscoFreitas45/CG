@@ -31,8 +31,17 @@ vector<Group*> scene;
 int linha = GL_FILL;
 float alpha = 0.61547999;
 float beta = 0.61547999;
-float rad = 70;
+float rad = 50;
+float px = 0.0;
+float py;
+float pz = 0.0;
+float lx = 0.0;
+float ly = 0.0;
+float lz = 0.0;
 int tam=0;
+float cam_angle = 0.0;
+float speed=2;
+int startX, startY, tracking = 0;
 
 
 
@@ -416,20 +425,19 @@ void renderScene(void) {
     float fps;
     int time;
     char s[64];
-    
+
+
     // clear buffers
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-        // set the camera
+    lx = px + sin(cam_angle);
+    lz = pz + cos(cam_angle);
+    // set the camera
     glLoadIdentity();
-    glLightfv(GL_LIGHT0, GL_POSITION, pos);
-    glMaterialf(GL_FRONT, GL_SHININESS,50.0);
-    gluLookAt(rad*cos(beta),rad*sin(beta),rad*cos(beta)*sin(alpha),
-              0.0,0.0,0.0,
+    gluLookAt(px,py,pz,
+              lx,py,lz,
               0.0f,1.0f,0.0f);
 
     glPolygonMode(GL_FRONT,linha);
-
 
     for(int i = 0; i < scene.size(); i++){
         renderGroup(scene.at(i));
@@ -441,6 +449,128 @@ void renderScene(void) {
 
 
 
+
+void processKeys(unsigned char key, int xx, int yy) {
+    float dx, dy = 0, dz, rx, ry, rz;
+    float upx = 0, upy = 1, upz = 0;
+    switch (key) {
+        case 'w': {
+            dx = lx - px;
+            dz = lz - pz;
+            px = px + speed * dx;
+            pz = pz + speed * dz;
+
+            break;
+        }
+        case 's': {
+            dx = lx - px;
+            dz = lz - pz;
+            px = px + (-speed) * dx;
+            pz = pz + (-speed) * dz;
+
+            break;
+        }
+        case 'e': {
+            cam_angle -= 0.1;
+            break;
+        }
+        case 'q': {
+            cam_angle += 0.1;
+            break;
+        }
+        case 'a': {
+            dx = lx - px;
+            dz = lz - pz;
+            rx = dy * upz - dz * upy;
+            rz = dx * upy - dy * upx;
+            px = px + (-speed) * rx;
+            pz = pz + (-speed) * rz;
+
+            break;
+        }
+        case 'd': {
+            dx = lx - px;
+            dz = lz - pz;
+            rx = dy * upz - dz * upy;
+            rz = dx * upy - dy * upx;
+            px = px + speed * rx;
+            pz = pz + speed * rz;
+
+            break;
+        }
+    }
+
+}
+void processMouseButtons(int button, int state, int xx, int yy) {
+
+    if (state == GLUT_DOWN)  {
+        startX = xx;
+        startY = yy;
+        if (button == GLUT_LEFT_BUTTON)
+            tracking = 1;
+        else if (button == GLUT_RIGHT_BUTTON)
+            tracking = 2;
+        else
+            tracking = 0;
+    }
+    else if (state == GLUT_UP) {
+        if (tracking == 1) {
+            alpha += (xx - startX);
+            beta += (yy - startY);
+        }
+        else if (tracking == 2) {
+
+            rad -= yy - startY;
+            if (rad < 3)
+                rad = 3.0;
+        }
+        tracking = 0;
+    }
+}
+
+
+
+
+
+void processMouseMotion(int xx, int yy) {
+
+    int deltaX, deltaY;
+    int alphaAux, betaAux;
+    int rAux;
+
+    if (!tracking)
+        return;
+
+    deltaX = xx - startX;
+    deltaY = yy - startY;
+
+    if (tracking == 1) {
+
+
+        alphaAux = alpha + deltaX;
+        betaAux = beta + deltaY;
+
+        if (betaAux > 85.0)
+            betaAux = 85.0;
+        else if (betaAux < -85.0)
+            betaAux = -85.0;
+
+        rAux = rad;
+    }
+    else if (tracking == 2) {
+
+        alphaAux = alpha;
+        betaAux = beta;
+        rAux = rad - deltaY;
+        if (rAux < 3)
+            rAux = 3;
+    }
+    px = rAux * sin(alphaAux * 3.14 / 180.0) * cos(betaAux * 3.14 / 180.0);
+    pz = rAux * cos(alphaAux * 3.14 / 180.0) * cos(betaAux * 3.14 / 180.0);
+    py = rAux * 							     sin(betaAux * 3.14 / 180.0);
+}
+
+/*
 void processKeys(unsigned char c, int xx, int yy) {
     switch (c) {
         case 'p':
@@ -490,6 +620,7 @@ void processSpecialKeys(int key, int xx, int yy) {
             break;
     }
 }
+ */
 
 //Engine Guide
 void printHelp(){
@@ -576,8 +707,9 @@ int main(int argc, char * argv[]) {
     glutReshapeFunc(changeSize);
     glutIdleFunc(renderScene);
     glutKeyboardFunc(processKeys);
-    glutSpecialFunc(processSpecialKeys);
-    glutMouseFunc(movement_mouse);
+  //  glutSpecialFunc(processSpecialKeys);
+    glutMouseFunc(processMouseButtons);
+    glutMotionFunc(processMouseMotion);
     // OpenGL settings
     cout << "cenas\n"<<endl;;
     
