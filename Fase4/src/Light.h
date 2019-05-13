@@ -2,7 +2,7 @@
 #define GENERATOR_LIGHT_H
 
 
-#include <GLUT/glut.h>
+#include <GL/glut.h>
 #include <iostream>
 
 #include "Point.h"

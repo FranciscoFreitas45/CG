@@ -1,7 +1,7 @@
 #ifndef GENERATOR_MATERIAL_H
 #define GENERATOR_MATERIAL_H
 
-#include <GLUT/glut.h>
+#include <GL/glut.h>
 #include <iostream>
 
 #include "Action.h"

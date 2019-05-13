@@ -223,38 +223,38 @@ void parserModels(XMLElement * current,Group *g){
         if(element->Attribute("diffX") || element->Attribute("diffY") || element->Attribute("diffZ")){
             diffuse = new Action();
             diffuse->setTag("colour");
-            diffuse->setX(stof(element->Attribute("diffX")));
-            diffuse->setY(stof(element->Attribute("diffY")));
-            diffuse->setZ(stof(element->Attribute("diffZ")));
+            diffuse->setX(atof(element->Attribute("diffX")));
+            diffuse->setY(atof(element->Attribute("diffY")));
+            diffuse->setZ(atof(element->Attribute("diffZ")));
             isThereMaterial = true;
         }
         if(element->Attribute("specX") || element->Attribute("specY") || element->Attribute("specZ")){
             specular = new Action();
             specular->setTag("colour");
-            specular->setX(stof(element->Attribute("specX")));
-            specular->setY(stof(element->Attribute("specY")));
-            specular->setZ(stof(element->Attribute("specZ")));
+            specular->setX(atof(element->Attribute("specX")));
+            specular->setY(atof(element->Attribute("specY")));
+            specular->setZ(atof(element->Attribute("specZ")));
             isThereMaterial = true;
         }
         if(element->Attribute("emiX") || element->Attribute("emiY") || element->Attribute("emiZ")){
             emission = new Action();
             emission->setTag("colour");
-            emission->setX(stof(element->Attribute("emiX")));
-            emission->setY(stof(element->Attribute("emiY")));
-            emission->setZ(stof(element->Attribute("emiZ")));
+            emission->setX(atof(element->Attribute("emiX")));
+            emission->setY(atof(element->Attribute("emiY")));
+            emission->setZ(atof(element->Attribute("emiZ")));
             isThereMaterial = true;
         }
         if(element->Attribute("ambX") || element->Attribute("ambY") || element->Attribute("ambZ")){
             ambient = new Action();
             ambient->setTag("colour");
-            ambient->setX(stof(element->Attribute("ambX")));
-            ambient->setY(stof(element->Attribute("ambY")));
-            ambient->setZ(stof(element->Attribute("ambZ")));
+            ambient->setX(atof(element->Attribute("ambX")));
+            ambient->setY(atof(element->Attribute("ambY")));
+            ambient->setZ(atof(element->Attribute("ambZ")));
             isThereMaterial = true;
         }
 
         if(element->Attribute("shine")){
-            shininess = stof(element->Attribute("shine"));
+            shininess = atof(element->Attribute("shine"));
             isThereMaterial = true;
         }
         
