@@ -42,6 +42,8 @@ int tam=0;
 float cam_angle = 0.0;
 float speed=2;
 int startX, startY, tracking = 0;
+int camara=0;
+float camX = 00, camY = 30, camZ = 40;
 
 
 
@@ -425,11 +427,22 @@ void renderScene(void) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     lx = px + sin(cam_angle);
     lz = pz + cos(cam_angle);
-    // set the camera
+    ly = py;
     glLoadIdentity();
-    gluLookAt(px,py,pz,
-              lx,py,lz,
-              0.0f,1.0f,0.0f);
+    if (camara == 0) {
+    // set the camera
+
+    gluLookAt(px, py, pz,
+              lx, py, lz,
+              0.0f, 1.0f, 0.0f);
+}
+    else{
+
+        gluLookAt(camX, camY, camZ,
+                  0, 0, 0,
+                  0.0f, 1.0f, 0.0f);
+    }
+
 
     glPolygonMode(GL_FRONT,linha);
 
@@ -447,6 +460,7 @@ void renderScene(void) {
 void processKeys(unsigned char key, int xx, int yy) {
     float dx, dy = 0, dz, rx, ry, rz;
     float upx = 0, upy = 1, upz = 0;
+    tracking=10;
     switch (key) {
         case 'w': {
             dx = lx - px;
@@ -490,6 +504,14 @@ void processKeys(unsigned char key, int xx, int yy) {
             px = px + speed * rx;
             pz = pz + speed * rz;
 
+            break;
+        }
+        case 'z':{
+            if(!camara)
+            camara=1;
+            else{
+                camara=0;
+            }
             break;
         }
     }
@@ -559,9 +581,9 @@ void processMouseMotion(int xx, int yy) {
         if (rAux < 3)
             rAux = 3;
     }
-    px = rAux * sin(alphaAux * 3.14 / 180.0) * cos(betaAux * 3.14 / 180.0);
-    pz = rAux * cos(alphaAux * 3.14 / 180.0) * cos(betaAux * 3.14 / 180.0);
-    py = rAux * 							     sin(betaAux * 3.14 / 180.0);
+    camX = rAux * sin(alphaAux * 3.14 / 180.0) * cos(betaAux * 3.14 / 180.0);
+    camZ = rAux * cos(alphaAux * 3.14 / 180.0) * cos(betaAux * 3.14 / 180.0);
+    camY = rAux * 							     sin(betaAux * 3.14 / 180.0);
 }
 
 /*
@@ -703,7 +725,7 @@ int main(int argc, char * argv[]) {
     glutReshapeFunc(changeSize);
     glutIdleFunc(renderScene);
     glutKeyboardFunc(processKeys);
-  //  glutSpecialFunc(processSpecialKeys);
+   //glutSpecialFunc(processSpecialKeys);
     glutMouseFunc(processMouseButtons);
     glutMotionFunc(processMouseMotion);
     // OpenGL settings
