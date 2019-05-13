@@ -22,13 +22,12 @@ Point* Point::normalize() {
     return new Point(ax/magnitude,ay/magnitude,az/magnitude);
 }
 
-float* Point::toUV() {
+Point* Point::toUV() {
     float ax = this->x, ay = this->y, az = this->z;
-    float* uv = (float *)malloc(2*sizeof(float));
-    uv[0] = 0.5+(atan2(az,ax)/2*M_PI);
-    uv[1] = 0.5-(asin(ay)/M_PI);
-    cout << uv[0] << " ,,, " << uv[1] << " ... " << 0.5-(asin(ay)/M_PI) << "\n";
-    return uv;
+    float uv[2];
+    uv[0] =0.5 + atan2(z,x)/(2*M_PI);
+    uv[1] = 0.5 - asin(y) / M_PI;
+    return new Point(uv[0],uv[1],0);
 }
 
 

@@ -13,7 +13,7 @@ void Shape::insertNormal(Point* p){
     this->normal.push_back(p);
 }
 
-void Shape::insertTexture(float uv[2]){
+void Shape::insertTexture(Point* uv){
     this->texture.push_back(uv);
 }
 
@@ -29,7 +29,7 @@ Point* Shape::getNormal(int i) {
     return this->normal.at(i);
 }
 
-float* Shape::getTexture(int i) {
+Point* Shape::getTexture(int i) {
     return this->texture.at(i);
 }
 
@@ -74,8 +74,8 @@ void Shape::vbo() {
     }
 
     for (int i = 0; i < this->texture.size(); i++) {
-        t[index3] = this->texture[i][0];
-        t[index3 + 1] = this->texture[i][1];
+        t[index3] = this->texture[i]->getX();
+        t[index3 + 1] = this->texture[i]->getY();
         index3 += 2;
     }
 
@@ -104,19 +104,15 @@ void Shape::loadTexture(string path) {
     ilOriginFunc(IL_ORIGIN_LOWER_LEFT);
     ilGenImages(1, &img);
     ilBindImage(img);
-    cout << "coosds " << path<< endl;
-
-    if(! ilLoadImage("Concrete.jpg"))
-                cout << "Kan testje.png niet laden :'(\n";
+    if(! ilLoadImage((ILstring) path.c_str()))
+                cout << "Erro a ler imagem :'(\n";
 
     tw = ilGetInteger(IL_IMAGE_WIDTH);
     th = ilGetInteger(IL_IMAGE_HEIGHT);
     ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
     texData = ilGetData();
-    cout << "coosds " << texID << endl;
     glGenTextures(1, &texID);
     glBindTexture(GL_TEXTURE_2D, texID);
-    cout << "coiada" << endl;
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);

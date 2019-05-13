@@ -19,7 +19,7 @@ public:
     Point(string line);
     Point* normalize();
     Point* crossProduct(Point*,Point*);
-    float* toUV();
+    Point* toUV();
     float getX();
     float getY();
     float getZ();

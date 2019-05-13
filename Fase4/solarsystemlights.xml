@@ -9,7 +9,7 @@
 				<colour R='255' G='197' B='0' />
                 <scale X='4' Y='4' Z='4' />
                 <models>
-                    <model file='../files3d/sun.3d' /> '<!--'#SOL '-->'
+                    <model file='../files3d/sun.3d' texture="Concrete.jpg"/> '<!--'#SOL '-->'
                 </models>
 			</group>
 			<group>
@@ -64,14 +64,14 @@
                 <colour R='0' G='150' B='255' />
                 <scale X='0.2' Y='0.2' Z='0.2' />
                 <models>
-                    <model file='../files3d/sphere.3d' /> '<!--' #TERRA '-->'
+                    <model file='../files3d/sphere.3d' texture="earth.jpg"/> '<!--' #TERRA '-->'
                 </models>
                 <group>
                     <translate X='0.3' Y='0' Z='2.5' />
 					<colour R='255' G='255' B='255' />
                     <scale X='0.2' Y='0.2' Z='0.2' />
                     <models>
-                        <model file='../files3d/sphere.3d' /> '<!--' #TERRA LUA'-->'
+                        <model file='../files3d/sphere.3d' texture="moon.jpg"/> '<!--' #TERRA LUA'-->'
                     </models>
                 </group>
             </group>

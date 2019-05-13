@@ -69,26 +69,24 @@ Shape* readFile(char* FILENAME) {
             i++;
         }
         i = 0;
-        int t = 0;
+        float u, v;
         getline(file,line);
         texs = atoi(line.c_str());
-        float* uv = (float*)malloc(texs*2*sizeof(float));
         while (i < texs) {
-            getline(file,line);
             vector<string> tokens;
+            getline(file,line);
             stringstream check1(line);
             string intermediate;
-            while(getline(check1, intermediate, ' ')){
+            while(getline(check1, intermediate, ' '))
+            {
                 tokens.push_back(intermediate);
             }
-            uv[t] = atof(tokens[0].c_str());
-            uv[t+1] = atof(tokens[1].c_str());
-            printf("%d %d\n",uv[t],uv[t+1]);
-            s->insertTexture(uv+t);
-            t+=2;
+            u = atof(tokens[0].c_str());
+            v = atof(tokens[1].c_str());
+            Point *p = new Point(u,v,0);
+            s->insertTexture(p);
             i++;
         }
-        free(uv);
         file.close();
     }
     else {
@@ -278,14 +276,10 @@ void parserModels(XMLElement * current,Group *g){
             shape->setMaterial(m);
         }
         if(hasTexture){
-            cout << "oioi\n" << endl;
             shape->loadTexture(textureName);
-            cout << "oioi\n" << endl;
         }
-        cout << "oioi\n" << endl;
         models.push_back(shape);
     }
-    cout << "oioi\n" << endl;
     g->addShape(models);
     Group* newGroup = g->clone();
 
@@ -711,11 +705,7 @@ int main(int argc, char * argv[]) {
     glutMouseFunc(processMouseButtons);
     glutMotionFunc(processMouseMotion);
     // OpenGL settings
-    cout << "cenas\n"<<endl;;
-    
-    cout << "cenas"<<endl;;
     passTovbo();
-    cout << "cenas"<<endl;;
     glutMainLoop();
     return 1;
 }

@@ -24,7 +24,7 @@ class Shape {
 private:
     std::vector<Point*> points;
     std::vector<Point*> normal;
-    std::vector<float*> texture;
+    std::vector<Point*> texture;
     Material* material;
     GLuint vertices, normals, textures, texID;
 
@@ -33,11 +33,11 @@ public:
     void insertNormal(Point*);
     void setMaterial(Material*);
     void setTexID(GLuint t);
-    void insertTexture(float* uv);
+    void insertTexture(Point*);
     Material* getMaterial();
     Point* getPoint(int);
     Point* getNormal(int);
-    float* getTexture(int);
+    Point* getTexture(int);
     int getSize();
     int getNormalSize();
     int getTextureSize();

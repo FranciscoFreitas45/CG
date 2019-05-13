@@ -8,45 +8,33 @@ Shape* plane(float size){
     Shape *s = new Shape();
 
     float m = size/2;
-    float uv[12];
+    Point* uv;
     //1
     s->insertPoint(new Point(-m,0,m));
     s->insertNormal(new Point(0,1,0));
-    uv[0] = 0;
-    uv[1] = 0;
-    s->insertTexture(uv);
+    s->insertTexture(new Point(0,0,0));
     
     s->insertPoint(new Point(m,0,m));
     s->insertNormal(new Point(0,1,0));
-    uv[2] = 1;
-    uv[3] = 0;
-    s->insertTexture(uv+2);
+    s->insertTexture(new Point(1,0,0));
     
     s->insertPoint(new Point(m,0,-m));
     s->insertNormal(new Point(0,1,0));
-    uv[4] = 1;
-    uv[5] = 1;
-    s->insertTexture(uv+4);
+    s->insertTexture(new Point(1,1,0));
 
     //2
     s->insertPoint(new Point(-m,0,m));
     s->insertNormal(new Point(0,1,0));
-    uv[6] = 0;
-    uv[7] = 0;
-    s->insertTexture(uv+6);
+    s->insertTexture(new Point(0,0,0));
     
     s->insertPoint(new Point(m,0,-m));
     s->insertNormal(new Point(0,1,0));
-    uv[8] = 1;
-    uv[9] = 1;
-    s->insertTexture(uv+8);
+    s->insertTexture(new Point(1,1,0));
     
 
     s->insertPoint(new Point(-m,0,-m));
     s->insertNormal(new Point(0,1,0));
-    uv[10] = 0;
-    uv[11] = 1;
-    s->insertTexture(uv+10);
+    s->insertTexture(new Point(0,1,0));
     return s;
 }
 

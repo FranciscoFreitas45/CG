@@ -1,8 +1,9 @@
 <scene>
     <group>
         <group>
+            <scale X='4' Y='4' Z='4' />
             <models>
-                <model file="../files3d/plane.3d" texture="Concrete.jpg"/>
+                <model file="../files3d/sphere.3d" texture="Concrete.jpg"/>
             </models>
        </group>
     </group>

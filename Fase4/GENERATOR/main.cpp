@@ -26,7 +26,7 @@ void write_shape(Shape* s, char* file_path){
     int i;
     int size = s->getSize();
     Point* p;
-    float* uv;
+    Point* uv;
 
     system("mkdir -p ../files3d/ ");
     strcpy(path,"../files3d/");
@@ -57,7 +57,7 @@ void write_shape(Shape* s, char* file_path){
     file << buff;
     for(i=0;i<size;i++){
         uv= s->getTexture(i);
-        sprintf(buff, "%f %f\n", uv[0], uv[1]);
+        sprintf(buff, "%f %f\n", uv->getX(), uv->getY());
         file << buff;
     }}
     file.close();
