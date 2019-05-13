@@ -96,29 +96,34 @@ void Shape::vbo() {
     free(t);
 }
 
-void Shape::loadTexture(string texture_file) {
-    string path = texture_file;
-    unsigned int tw,th;
+void Shape::loadTexture(string path) {
+    unsigned int tw,th, t;
     unsigned char *texData;
+    ILuint img;
+    ilEnable(IL_ORIGIN_SET);
+    ilOriginFunc(IL_ORIGIN_LOWER_LEFT);
+    ilGenImages(1, &img);
+    ilBindImage(img);
+    cout << "coosds " << path<< endl;
 
-    unsigned int ima[1];
+    if(! ilLoadImage("Concrete.jpg"))
+                cout << "Kan testje.png niet laden :'(\n";
 
-    ilInit();
-    ilGenImages(1, ima);
-    ilBindImage(ima[0]);
-    ilLoadImage((ILstring)path.c_str());
     tw = ilGetInteger(IL_IMAGE_WIDTH);
     th = ilGetInteger(IL_IMAGE_HEIGHT);
     ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
     texData = ilGetData();
-
+    cout << "coosds " << texID << endl;
     glGenTextures(1, &texID);
     glBindTexture(GL_TEXTURE_2D, texID);
+    cout << "coiada" << endl;
+
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tw, th, 0, GL_RGBA, GL_UNSIGNED_BYTE, texData);
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 

@@ -316,7 +316,6 @@ void renderScene(void) {
     // End of frame
     glutSwapBuffers();
 }
-ss
 
 
 void processKeys(unsigned char key, int xx, int yy) {

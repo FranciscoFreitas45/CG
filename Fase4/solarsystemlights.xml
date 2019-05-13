@@ -1,10 +1,15 @@
 <scene>
+    <lights>
+        <light type='POINT' posX='0' posY='1' posZ='0' />
+    </lights>
     <group>
             <group>
                 <tag type='F' />
                 <rotate time='20' X='0' Y='1' Z='0' />
+				<colour R='255' G='197' B='0' />
+                <scale X='4' Y='4' Z='4' />
                 <models>
-                    <model file='../files3d/sun.3d' ambX='0.2' ambY='0.2' ambZ='0.2' diffX='1' diffY='1' diffZ='1' />/> '<!--'#SOL '-->'
+                    <model file='../files3d/sun.3d' /> '<!--'#SOL '-->'
                 </models>
 			</group>
 			<group>
@@ -35,7 +40,7 @@
                 </models>
             </group>
             <group>
-                <tag type='F' />
+                <tag type='L' />
 				<rotate time='15' X='0' Y='1' Z='0' />
 				<translate X='11' Y='0' Z='0' />
                 <colour R='235' G='231' B='211' />
@@ -53,7 +58,7 @@
                 </models>
             </group>
             <group>
-                <tag type='F' />
+                <tag type='L' />
 				<rotate time='20' X='0' Y='1' Z='0' />
 				<translate X='12' Y='0' Z='0' />
                 <colour R='0' G='150' B='255' />
@@ -79,7 +84,7 @@
                 </models>
             </group>
             <group>
-                <tag type='F' />
+                <tag type='L' />
 				<rotate time='25' X='0' Y='1' Z='0' />
                 <translate X='13' Y='0' Z='0' />
                 <scale X='0.062' Y='0.062' Z='0.062' />
@@ -97,7 +102,7 @@
                 </models>
             </group>
             <group>
-                <tag type='F' />
+                <tag type='L' />
 				<rotate time='30' X='0' Y='1' Z='0' />
                 <translate X='20' Y='0' Z='0' />
                 <colour R='229' G='172' B='86' />
@@ -115,7 +120,7 @@
                 </models>
             </group>
             <group>
-                <tag type='F' />
+                <tag type='L' />
 				<rotate time='35' X='0' Y='1' Z='0' />
 				<rotate time='35' X='1' Y='0' Z='0' />
                 <translate X='23' Y='0' Z='0' />
@@ -133,7 +138,6 @@
 					</models>
 				</group>
                 <group>
-                    <tag type='F' />
                     <colour R='230' G='212' B='168' />
                     <scale X='0.6' Y='0.6' Z='0.6' />
                     <models>

@@ -269,10 +269,14 @@ void parserModels(XMLElement * current,Group *g){
             shape->setMaterial(m);
         }
         if(hasTexture){
+            cout << "oioi\n" << endl;
             shape->loadTexture(textureName);
+            cout << "oioi\n" << endl;
         }
+        cout << "oioi\n" << endl;
         models.push_back(shape);
     }
+    cout << "oioi\n" << endl;
     g->addShape(models);
     Group* newGroup = g->clone();
 
@@ -533,21 +537,10 @@ void printHelp(){
 
 
 int main(int argc, char * argv[]) {
-    if(argc<2){
-        return 0;
-    }
-    if(!strcmp(argv[1],"-h")){
-        printHelp();
-        return 0;
-    }
-    Shape s = Shape();
-    readXML(argv[1]);
-    cout << "cenas\n"<<endl;;
-    // put GLUT init here
     glutInit(&argc,argv);
     glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
     glutInitWindowPosition(100,100);
-    glutInitWindowSize(800,800);
+    glutInitWindowSize(1080,720);
     glutCreateWindow("CG@DI");
     glClearColor(0,0,0,0) ;
     glClear(GL_COLOR_BUFFER_BIT);
@@ -555,15 +548,13 @@ int main(int argc, char * argv[]) {
     // init GLEW
     glewInit();
     #endif
-    cout << "cenas\n"<<endl;;
-    glutDisplayFunc(renderScene);
-    glutReshapeFunc(changeSize);
-    glutIdleFunc(renderScene);
-    glutKeyboardFunc(processKeys);
-    glutSpecialFunc(processSpecialKeys);
-    glutMouseFunc(movement_mouse);
-    // OpenGL settings
-    cout << "cenas\n"<<endl;;
+    if(argc<2){
+        return 0;
+    }
+    if(!strcmp(argv[1],"-h")){
+        printHelp();
+        return 0;
+    }
     ilInit();
     ilEnable(IL_ORIGIN_SET);
     ilOriginFunc(IL_ORIGIN_LOWER_LEFT);
@@ -579,6 +570,16 @@ int main(int argc, char * argv[]) {
 
     glLightfv(GL_LIGHT0, GL_AMBIENT, amb);
     glLightfv(GL_LIGHT0, GL_DIFFUSE, diff);
+    Shape s = Shape();
+    readXML(argv[1]);
+    glutDisplayFunc(renderScene);
+    glutReshapeFunc(changeSize);
+    glutIdleFunc(renderScene);
+    glutKeyboardFunc(processKeys);
+    glutSpecialFunc(processSpecialKeys);
+    glutMouseFunc(movement_mouse);
+    // OpenGL settings
+    cout << "cenas\n"<<endl;;
     
     cout << "cenas"<<endl;;
     passTovbo();
