@@ -695,8 +695,10 @@ int main(int argc, char * argv[]) {
 
     glLightfv(GL_LIGHT0, GL_AMBIENT, amb);
     glLightfv(GL_LIGHT0, GL_DIFFUSE, diff);
+
     Shape s = Shape();
     readXML(argv[1]);
+    
     glutDisplayFunc(renderScene);
     glutReshapeFunc(changeSize);
     glutIdleFunc(renderScene);

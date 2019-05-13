@@ -23,11 +23,11 @@ Point* Point::normalize() {
 }
 
 Point* Point::toUV() {
-    float ax = this->x, ay = this->y, az = this->z;
-    float uv[2];
-    uv[0] =0.5 + atan2(z,x)/(2*M_PI);
-    uv[1] = 0.5 - asin(y) / M_PI;
-    return new Point(uv[0],uv[1],0);
+    Point* p = this->normalize();
+    float u, v;
+    u = 0.5 + atan2(p->getZ(), p->getX()) / (2* M_PI);
+    v = 0.5 - asin(p->getY()) / M_PI;
+    return new Point(u,v,0);
 }
 
 

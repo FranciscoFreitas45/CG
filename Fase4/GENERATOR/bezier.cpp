@@ -145,27 +145,37 @@ Shape* parseBezierPatch(float tess, char* file_orig){
                 s->insertPoint(temp);
                 normal = temp->normalize();
                 s->insertNormal(new Point(normal->getX(),normal->getY(),normal->getZ()));
+                s->insertTexture(temp->toUV());
+
                 temp = new Point(res[i][1]->getX(),res[i][1]->getY(),res[i][1]->getZ());
                 s->insertPoint(temp);
                 normal = temp->normalize();
                 s->insertNormal(new Point(normal->getX(),normal->getY(),normal->getZ()));
+                s->insertTexture(temp->toUV());
+
                 temp = new Point(res[i][3]->getX(),res[i][3]->getY(),res[i][3]->getZ());
                 s->insertPoint(temp);
                 normal = temp->normalize();
                 s->insertNormal(new Point(normal->getX(),normal->getY(),normal->getZ()));
+                s->insertTexture(temp->toUV());
                 //0,3,2
                 temp = new Point(res[i][0]->getX(),res[i][0]->getY(),res[i][0]->getZ());
                 s->insertPoint(temp);
                 normal = temp->normalize();
                 s->insertNormal(new Point(normal->getX(),normal->getY(),normal->getZ()));
+                s->insertTexture(temp->toUV());
+
                 temp = new Point(res[i][3]->getX(),res[i][3]->getY(),res[i][3]->getZ());
                 s->insertPoint(temp);
                 normal = temp->normalize();
                 s->insertNormal(new Point(normal->getX(),normal->getY(),normal->getZ()));
+                s->insertTexture(temp->toUV());
+
                 temp = new Point(res[i][2]->getX(),res[i][2]->getY(),res[i][2]->getZ());
                 s->insertPoint(temp);
                 normal = temp->normalize();
                 s->insertNormal(new Point(normal->getX(),normal->getY(),normal->getZ()));
+                s->insertTexture(temp->toUV());
             }
         }
     }

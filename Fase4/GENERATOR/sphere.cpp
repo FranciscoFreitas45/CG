@@ -22,17 +22,17 @@ Shape * sphere(float radius, int slices, int stacks) {
             if(j==1){
                 p = new Point(r*cos(alfa)*cos(beta_out),r*sin(beta_out),r*sin(alfa)*cos(beta_out));
                 s->insertPoint(p);
-                s->insertNormal(new Point(cos(alfa),r*sin(beta_out)/radius,sin(alfa)));
+                s->insertNormal(p->normalize());
                 s->insertTexture(p->toUV());
 
                 p = new Point(0,r,0);
                 s->insertPoint(p);
-                s->insertNormal(new Point(0,r/radius,0));
+                s->insertNormal(p->normalize());
                 s->insertTexture(p->toUV());
 
                 p = new Point(r*cos(alfa+ang)*cos(beta_out),r*sin(beta_out),r*sin(alfa+ang)*cos(beta_out));
                 s->insertPoint(p);
-                s->insertNormal(new Point(cos(alfa+ang),r*sin(beta_out)/radius,sin(alfa+ang)));
+                s->insertNormal(p->normalize());
                 s->insertTexture(p->toUV());
                 beta_in -= reduction;
                 beta_out -= reduction;
@@ -41,17 +41,17 @@ Shape * sphere(float radius, int slices, int stacks) {
             else if(j==stacks){
                 p = new Point(0,-r,0);
                 s->insertPoint(p);
-                s->insertNormal(new Point(0,-r/radius,0));
+                s->insertNormal(p->normalize());
                 s->insertTexture(p->toUV());
 
                 p = new Point(r*cos(alfa)*cos(beta_in),r*sin(beta_in),r*sin(alfa)*cos(beta_in));
                 s->insertPoint(p);
-                s->insertNormal(new Point(cos(alfa),r*sin(beta_in)/radius,sin(alfa)));
+                s->insertNormal(p->normalize());
                 s->insertTexture(p->toUV());
 
                 p = new Point(r*cos(alfa+ang)*cos(beta_in),r*sin(beta_in),r*sin(alfa+ang)*cos(beta_in));
                 s->insertPoint(p);
-                s->insertNormal(new Point(cos(alfa+ang),r*sin(beta_in)/radius,sin(alfa+ang)));
+                s->insertNormal(p->normalize());
                 s->insertTexture(p->toUV());
                 beta_in -= reduction;
                 beta_out -= reduction;
@@ -60,32 +60,32 @@ Shape * sphere(float radius, int slices, int stacks) {
             else{
                 p = new Point(r*cos(alfa)*cos(beta_in),r*sin(beta_in),r*sin(alfa)*cos(beta_in));
                 s->insertPoint(p);
-                s->insertNormal(new Point(cos(alfa),r*sin(beta_in)/radius,sin(alfa)));
+                s->insertNormal(p->normalize());
                 s->insertTexture(p->toUV());
 
                 p = new Point(r*cos(alfa+ang)*cos(beta_in),r*sin(beta_in),r*sin(alfa+ang)*cos(beta_in)); 
                 s->insertPoint(p);
-                s->insertNormal(new Point(cos(alfa+ang),r*sin(beta_in)/radius,sin(alfa+ang)));
+                s->insertNormal(p->normalize());
                 s->insertTexture(p->toUV());
 
                 p = new Point(r*cos(alfa+ang)*cos(beta_out),r*sin(beta_out),r*sin(alfa+ang)*cos(beta_out));
                 s->insertPoint(p);
-                s->insertNormal(new Point(cos(alfa+ang),r*sin(beta_out)/radius,sin(alfa+ang)));
+                s->insertNormal(p->normalize());
                 s->insertTexture(p->toUV());
 
                 p = new Point(r*cos(alfa)*cos(beta_out),r*sin(beta_out),r*sin(alfa)*cos(beta_out));
                 s->insertPoint(p);
-                s->insertNormal(new Point(cos(alfa),r*sin(beta_out)/radius,sin(alfa)));
+                s->insertNormal(p->normalize());
                 s->insertTexture(p->toUV());
 
                 p = new Point(r*cos(alfa)*cos(beta_in),r*sin(beta_in),r*sin(alfa)*cos(beta_in));
                 s->insertPoint(p);
-                s->insertNormal(new Point(cos(alfa),r*sin(beta_in)/radius,sin(alfa)));
+                s->insertNormal(p->normalize());
                 s->insertTexture(p->toUV());
 
                 p = new Point(r*cos(alfa+ang)*cos(beta_out),r*sin(beta_out),r*sin(alfa+ang)*cos(beta_out));
                 s->insertPoint(p);
-                s->insertNormal(new Point(cos(alfa+ang),r*sin(beta_out)/radius,sin(alfa+ang)));
+                s->insertNormal(p->normalize());
                 s->insertTexture(p->toUV());
 
                 beta_in -= reduction;
