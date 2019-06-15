@@ -58,5 +58,12 @@ void Group::setLights(const vector<Light*> &lights) {
 }
 
 Group* Group::clone(){
-    return new Group(this);
+    Group * g= new Group();
+        for(int i=0;i<this->actions.size();i++){
+            g->addAction(this->actions.at(i));
+        }
+    for(int i=0;i<this->lights.size();i++){
+        g->addLight(this->lights.at(i));
+    }
+    return  g;
 }

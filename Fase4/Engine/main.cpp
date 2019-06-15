@@ -285,7 +285,8 @@ void parserModels(XMLElement * current,Group *g){
     g->addShape(models);
     Group* newGroup = g->clone();
 
-    scene.push_back(newGroup);
+    scene.push_back(g);
+    g=newGroup;
 }
 
 
